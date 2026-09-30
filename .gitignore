@@ -1,0 +1,46 @@
+# ESP-IDF build output
+greenhouse/build/
+build/
+sdkconfig.old
+dependencies.lock
+
+# CMake / Ninja generated files
+CMakeCache.txt
+CMakeFiles/
+cmake_install.cmake
+compile_commands.json
+build.ninja
+*.ninja
+
+# Firmware binaries / maps
+*.bin
+*.elf
+*.map
+*.hex
+
+# Logs
+*.log
+log/
+
+# Python / tooling cache
+__pycache__/
+*.pyc
+.pytest_cache/
+.cache/
+
+# PlatformIO, if you ever use it
+.pio/
+.pioenvs/
+.piolibdeps/
+
+# Editor / OS files
+.vscode/
+.idea/
+*.swp
+*.swo
+.DS_Store
+Thumbs.db
+
+# Local environment files
+.env
+*.env

@@ -1,0 +1,9 @@
+CompileFlags:
+  CompilationDatabase: build
+  Remove:
+    - -fno-malloc-dce
+    - -fzero-init-padding-bits=all
+    - -fno-tree-switch-conversion
+    - -fstrict-volatile-bitfields
+    - -fno-shrink-wrap
+    - -mlongcalls
