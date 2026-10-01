@@ -1,0 +1,62 @@
+Context 
+	
+
+In modern agriculture, there's a growing demand for automated systems to optimize plant growth while conserving water resources. Embedded systems, coupled with software engineering principles, offer the potential to create solutions for plant monitoring and integration. Those solutions should be efficient and user-friendly. Therefore data(bases), networking and designing can be used. 
+
+Topics
+	
+
+Process Data in Organizations, Software Design & Engineering, Intelligent Technologies, Interactive Media
+
+Key words 
+	
+
+Greenhouse Management, IT Solutions, Embedded Systems, Data Analytics, Sustainability, Prototype Development, Promotion.
+
+Challenge description 
+	
+
+The Greenhouse Management System challenge is designed to address the complexities of modern greenhouse operations by integrating technology and innovation across all IT disciplines. This challenge has a comprehensive enhancement of greenhouse management practices, focusing on efficiency, sustainability, and data-driven decision-making.
+
+Scope of this challenge is creating a scalable and sustainable management system for greenhouses, by executing several tasks from different disciplines within the Field of IT (e.g. hardware, software, data-analytics, infrastructures, designing, etc.). Possible tasks for those disciplines can be found in the subjects list below.
+
+Students are invited to make a selection of those tasks, to enable them to make a tailor-made challenge. The only requirement here is that a student covers at least three IT topics while completing their tasks within this challenge.
+
+Subjects:
+
+    Sensor deployment (e.g. temperature, humidity, light)
+    Hardware platform selection like Arduino or Raspberry Pi
+    Programming with Embedded C, SQL, C#, HTML, CSS
+    Designing software with diagrams and testing it to fix bugs.
+    Making flowcharts
+    Designing and building a database
+    Designing and/or building networks for efficient and secure transmission of data between sensors and database
+    Working with virtual systems
+    Real-time data collection and analysis
+    Creating designs to create awareness (e.g. prototypes, websites, video, mobile application, posters, wireframes).
+    Analysis of the system sustainability and economic impact
+    Managing IT challenges
+
+Main question 
+	
+
+How can IT solutions be integrated into greenhouse operations to enhance efficiency, sustainability, and profitability?
+
+Possible product 
+	
+
+    challengeplan
+    A live prototype app/website, database, data dashboard,
+    Portfolio
+    Demo/presentation
+
+Constraints 
+	
+
+- Limited to 4 weeks.
+- Student covers at least three IT topics within the challenge for in-depth analysis, design, and implementation.
+- Students must choose several parts to focus on during the challenge, using Analysis, Design, Realisation.
+- The server used for the challenge could be located in the net lab (VMWare).
+
+Possible tools/ technology 
+	Figma, HTML/CSS, PowerBI, SSMS, Python, PHP, Adobe XD, C#/C++, arduino, SQL, SQL server/lite
