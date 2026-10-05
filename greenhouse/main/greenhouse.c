@@ -19,14 +19,15 @@
 #define OLED_SCL_GPIO GPIO_NUM_22
 
 //INPUT ONLY
-#define MOISTURE_GPIO GPIO_NUM_36
-#define WATER_LEVEL_GPIO GPIO_NUM_39
+#define MOISTURE_GPIO GPIO_NUM_33
+#define WATER_LEVEL_GPIO GPIO_NUM_35
 #define LIGHT_SENSOR_GPIO GPIO_NUM_34
 
 
 //ADC
 #define LIGHT_ADC_CHANNEL ADC_CHANNEL_6
-
+#define WATER_LEVEL_ADC_CHANNEL ADC_CHANNEL_7
+#define MOISTURE_ADC_CHANNEL ADC_CHANNEL_5
 
 
 typedef struct{
@@ -45,7 +46,6 @@ typedef struct{
 
 typedef struct{
        
-
 	float humidity ;
 	float temperature;
 	esp_err_t dht_stats;
@@ -74,34 +74,78 @@ void app_main(void){
 
 	Readings_DHT sensorDHT = {0, 0, 0};
 
-
+	//Init ADC1
 	adc_oneshot_unit_handle_t adc_handle;
 	
 	adc_oneshot_unit_init_cfg_t unit_config = {.unit_id = ADC_UNIT_1, .ulp_mode = ADC_ULP_MODE_DISABLE};
 	ESP_ERROR_CHECK(adc_oneshot_new_unit(&unit_config, &adc_handle));
 
 
+	//Init LIGHT_ADC_CHANNEL
+	adc_oneshot_chan_cfg_t light_channel_config = {.bitwidth = ADC_BITWIDTH_12, .atten = ADC_ATTEN_DB_12};
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc_handle, LIGHT_ADC_CHANNEL, &light_channel_config));
 
-	adc_oneshot_chan_cfg_t channel_config = {.bitwidth = ADC_BITWIDTH_12, .atten = ADC_ATTEN_DB_12};
+	//Init WATER_LEVEL_ADC_CHANNEL
+	adc_oneshot_chan_cfg_t water_channel_config = {.bitwidth = ADC_BITWIDTH_12, .atten = ADC_ATTEN_DB_12};
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc_handle, WATER_LEVEL_ADC_CHANNEL, &water_channel_config));
 
-	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc_handle, LIGHT_ADC_CHANNEL, &channel_config));
+	//Init MOISTURE_ADC_CHANNEL
+	adc_oneshot_chan_cfg_t moist_channel_config = {.bitwidth = ADC_BITWIDTH_12, .atten = ADC_ATTEN_DB_12};
+	ESP_ERROR_CHECK(adc_oneshot_config_channel(adc_handle, MOISTURE_ADC_CHANNEL, &moist_channel_config));
+
+
+
 
 	while(1){
 
 
-		int raw;
-		esp_err_t err = adc_oneshot_read(adc_handle, LIGHT_ADC_CHANNEL, &raw);
+		int light_raw;
+		esp_err_t light_err = adc_oneshot_read(adc_handle, LIGHT_ADC_CHANNEL, &light_raw);
+		
+
+		int water_raw;
+		esp_err_t water_err = adc_oneshot_read(adc_handle, WATER_LEVEL_ADC_CHANNEL, &water_raw);
+
+
+		int moist_raw;
+		esp_err_t moist_err = adc_oneshot_read(adc_handle, MOISTURE_ADC_CHANNEL, &moist_raw);
 
 		//read light
-		if(err == ESP_OK){
+		if(light_err == ESP_OK){
 			
-			printf("Light raw: %d\n", raw);
+			printf("Light raw: %d\n", light_raw);
 			
 
 		}else {
 		
-			printf("ADC error: %s\n", esp_err_to_name(err));
+			printf("ADC error: %s\n", esp_err_to_name(light_err));
 		}
+
+
+		//read water level
+		if(water_err == ESP_OK){
+			
+			printf("Water raw: %d\n", water_raw);
+			
+
+		}else {
+		
+			printf("ADC error: %s\n", esp_err_to_name(water_err));
+		}
+
+
+
+		//read moisture level
+		if(moist_err == ESP_OK){
+			
+			printf("Moisture raw: %d\n", moist_raw);
+			
+
+		}else {
+		
+			printf("ADC error: %s\n", esp_err_to_name(moist_err));
+		}
+
 
 		//read temp and hum
 		if(read_DHT(&sensorDHT) == 0){

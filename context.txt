@@ -60,3 +60,15 @@ Constraints
 
 Possible tools/ technology 
 	Figma, HTML/CSS, PowerBI, SSMS, Python, PHP, Adobe XD, C#/C++, arduino, SQL, SQL server/lite
+
+
+
+
+file struct:
+
+greenhouse.c       Startup and main control flow
+sensors.c/.h      Sensor initialization and readings
+watering.c/.h     Watering decisions and pump control
+display.c/.h      OLED rendering
+network.c/.h      Wi-Fi connection management
+mqtt_service.c/.h MQTT connection, messages, publishing
