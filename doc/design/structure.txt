@@ -1,0 +1,14 @@
+System Architecture
+|
++-- ESP32 Control Loop
+|   +-- Initialization
+|   +-- Read Sensors
+|   +-- Control Watering
+|   |   +-- When to Start
+|   |   +-- When to Stop
+|   +-- Update Display
+|   +-- Send Data / Reconnect
+|
++-- Backend: Receive -> Validate -> Store
+|
++-- Dashboard: Show Readings, History and Alerts

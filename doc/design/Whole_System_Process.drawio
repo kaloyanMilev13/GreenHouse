@@ -1,0 +1,87 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram name="Whole System Process" id="whole-system-process">
+    <mxGraphModel grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" page="1" pageScale="1" pageWidth="1120" pageHeight="1210" math="0" shadow="0">
+      <root>
+        <mxCell id="0"/><mxCell id="1" parent="0"/>
+        <mxCell id="title" value="Greenhouse - Main Process" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=28;fontColor=#222222;fillColor=#ffffff;strokeColor=none;strokeWidth=1.5;align=left;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="1040" height="45" as="geometry"/>
+        </mxCell>
+        <mxCell id="local" value="ESP32 - local control" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=none;strokeWidth=1.5;align=left;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="170" y="85" width="320" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="remote" value="Background reporting" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=none;strokeWidth=1.5;align=left;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="720" y="730" width="330" height="30" as="geometry"/>
+        </mxCell>
+        <mxCell id="start" value="Power on / reset" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=1;arcSize=45;" vertex="1" parent="1">
+          <mxGeometry x="190" y="135" width="280" height="50" as="geometry"/>
+        </mxCell>
+        <mxCell id="init" value="Initialize system&lt;br&gt;Pump OFF; load settings&lt;br&gt;Prepare sensors, display and network" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="230" width="340" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="read" value="Read sensors&lt;br&gt;Check validity and age" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="370" width="280" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="decide" value="Decide watering&lt;br&gt;Check whether to start or stop" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="170" y="485" width="320" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="apply" value="Apply pump decision&lt;br&gt;Record any start / stop" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="600" width="280" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="display" value="Update local display&lt;br&gt;Readings, pump state and warnings" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="160" y="715" width="340" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="queue" value="Queue readings&lt;br&gt;and watering events" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="190" y="835" width="280" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="wait" value="Wait for next control check" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="170" y="960" width="320" height="60" as="geometry"/>
+        </mxCell>
+        <mxCell id="send" value="Send queued data through MQTT&lt;br&gt;when connected" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="835" width="330" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="store" value="Backend receives data&lt;br&gt;and stores it in the database" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="960" width="330" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="dashboard" value="Dashboard shows readings,&lt;br&gt;history and warnings" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#222222;fillColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;rounded=0;" vertex="1" parent="1">
+          <mxGeometry x="720" y="1085" width="330" height="65" as="geometry"/>
+        </mxCell>
+        <mxCell id="note" value="Local control continues while reporting reconnects." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#222222;fillColor=#ffffff;strokeColor=none;strokeWidth=1.5;align=left;" vertex="1" parent="1">
+          <mxGeometry x="55" y="1120" width="590" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="start" target="init">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="init" target="read">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="read" target="decide">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="decide" target="apply">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="apply" target="display">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="display" target="queue">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="queue" target="wait">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="loop" value="Repeat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0;exitY=0.5;entryX=0;entryY=0.5;" edge="1" parent="1" source="wait" target="read">
+          <mxGeometry relative="1" x="0" y="-18" as="geometry"><Array as="points"><mxPoint x="80" y="990"/><mxPoint x="80" y="402.5"/></Array></mxGeometry>
+        </mxCell>
+        <mxCell id="transfer" value="In background" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=1;exitY=0.5;entryX=0;entryY=0.5;dashed=1;" edge="1" parent="1" source="queue" target="send">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="sendstore" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="send" target="store">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+        <mxCell id="storeview" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;html=1;fontFamily=Helvetica;fontSize=15;labelBackgroundColor=#ffffff;strokeColor=#333333;strokeWidth=1.5;endArrow=block;endFill=1;exitX=0.5;exitY=1;entryX=0.5;entryY=0;" edge="1" parent="1" source="store" target="dashboard">
+          <mxGeometry relative="1" as="geometry"></mxGeometry>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

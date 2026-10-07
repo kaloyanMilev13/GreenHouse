@@ -11,11 +11,47 @@
 #include "esp_netif.h"
 #include "esp_event.h"
 #include "esp_wifi.h"
+#include "esp_timer.h"
+
+#define WIFI_RETRY_DELAY_US 3000000ULL // = 3 secs
 
 #define WIFI_MAX_RETRIES 5
 
 static const char *TAG = "Hotspot from Arch";
-static int retry_count = 0;
+static esp_timer_handle_t retry_timer;
+
+static void scheduleRetry(void){
+
+
+	esp_err_t err = esp_timer_start_once(retry_timer, WIFI_RETRY_DELAY_US);
+
+	if(err != ESP_OK && err != ESP_ERR_INVALID_STATE){ //INVALID_STATE means that the timer is already runnign, 
+	
+		ESP_LOGE(TAG, "Cannot schedule retry: %s", esp_err_to_name(err));	
+
+	}
+
+}
+
+
+static void retryConnection(void *arg){
+
+
+	(void)arg;
+	ESP_LOGI(TAG, "Trying to reconnect");
+
+
+	esp_err_t err = esp_wifi_connect();
+
+	if(err != ESP_OK){
+
+		ESP_LOGW(TAG, "Connection request failed: %s", esp_err_to_name(err));
+
+		scheduleRetry();
+
+	}
+
+}
 
 static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t event_id, void *event_data){
 
@@ -24,11 +60,11 @@ static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t 
 
 		ESP_LOGI(TAG, "WiFi Started; requesting connection");
 
-		ESP_ERROR_CHECK(esp_wifi_connect());
+		retryConnection(NULL);
 
 	}else if(event_base == IP_EVENT && event_id == IP_EVENT_STA_GOT_IP){
 
-		retry_count = 0;
+		(void)esp_timer_stop(retry_timer);// dawa statusa na operciqta, no iztriwa resulta, zashtoto realo ne se interesuwame ot rezultata, a prosto iskame da sprem timera
 
 		ip_event_got_ip_t *event = event_data;
 
@@ -40,22 +76,7 @@ static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t 
 
 		ESP_LOGW(TAG, "Disconnected; Reason: %u", (unsigned)event->reason);
 
-		if(retry_count < WIFI_MAX_RETRIES){
-
-			retry_count++;
-
-			ESP_LOGI(TAG, "Reconnect attempt %d/%d", retry_count, WIFI_MAX_RETRIES);
-
-			esp_err_t err = esp_wifi_connect();
-
-			if(err != ESP_OK){
-				ESP_LOGE(TAG, "Connection request failed: %s", esp_err_to_name(err));
-			}
-
-		}else {
-
-			ESP_LOGW(TAG, "Retry limit reached");
-		}
+		scheduleRetry();
 
 	}
 
@@ -100,6 +121,16 @@ void networkInit(){
 
 	ESP_LOGI(TAG, "WiFi driver ready");
 
+	const esp_timer_create_args_t retry_config = {
+		
+		.callback = retryConnection,
+		.dispatch_method = ESP_TIMER_TASK,
+		.name = "wifi_retry",
+
+	};
+
+	ESP_ERROR_CHECK(esp_timer_create(&retry_config, &retry_timer));
+
 	wifi_config_t hotspot_config = { .sta = {
 
 		.ssid = HOTSPOT_SSID,
@@ -107,7 +138,7 @@ void networkInit(){
 		.threshold.authmode = WIFI_AUTH_WPA2_PSK,
 		.sae_pwe_h2e = WPA3_SAE_PWE_BOTH,
 
-	},
+		},
 
 	};
 
