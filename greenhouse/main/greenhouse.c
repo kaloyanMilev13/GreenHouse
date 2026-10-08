@@ -15,9 +15,12 @@
 #include "esp_adc/adc_oneshot.h"
 #include "ssd1306.h"
 
+#include "esp_log.h"
+
 
 //User libraries
 #include "network.h"
+#include "mqtt.h"
 
 #define SENSOR_READ_INTERVAL_MS 2000
 
@@ -220,7 +223,20 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 void app_main(void){
 
-    networkInit();
+
+	ESP_ERROR_CHECK(networkInit());
+
+	ESP_LOGI("greenhouse", "Waiting for an IP address");
+
+	while (!networkWaitReady(pdMS_TO_TICKS(10000))) {
+		ESP_LOGW("greenhouse", "Still waiting for network");
+	}
+
+	ESP_LOGI("greenhouse", "Network ready; MQTT can start");
+
+	ESP_LOGI("greenhouse", "Network ready; starting MQTT");
+
+	ESP_ERROR_CHECK(mqttInit());
 
 }
 

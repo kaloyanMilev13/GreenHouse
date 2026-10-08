@@ -13,12 +13,17 @@
 #include "esp_wifi.h"
 #include "esp_timer.h"
 
-#define WIFI_RETRY_DELAY_US 3000000ULL // = 3 secs
 
-#define WIFI_MAX_RETRIES 5
+#include "freertos/FreeRTOS.h"
+#include "freertos/event_groups.h"
+
+
+#define WIFI_RETRY_DELAY_US 3000000ULL // = 3 secs
+#define NETWORK_READY_BIT (1U << 0)
 
 static const char *TAG = "Hotspot from Arch";
 static esp_timer_handle_t retry_timer;
+static EventGroupHandle_t network_events;
 
 static void scheduleRetry(void){
 
@@ -70,11 +75,19 @@ static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t 
 
 		ESP_LOGI(TAG, "Connected! IP: " IPSTR, IP2STR(&event->ip_info.ip));
 
+		xEventGroupSetBits(network_events, NETWORK_READY_BIT);
+
+	}else if(event_base == IP_EVENT && event_id == IP_EVENT_STA_LOST_IP){
+
+		xEventGroupClearBitsFromISR(network_events, NETWORK_READY_BIT);
+	
 	}else if(event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED){
 
 		wifi_event_sta_disconnected_t *event = event_data;
 
 		ESP_LOGW(TAG, "Disconnected; Reason: %u", (unsigned)event->reason);
+
+		xEventGroupClearBits(network_events, NETWORK_READY_BIT);
 
 		scheduleRetry();
 
@@ -83,9 +96,25 @@ static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t 
 }
 
 
+bool networkWaitReady(TickType_t timeout_ticks){
+
+	if(network_events == NULL){
+		return false;
+	}
 
 
-void networkInit(){
+	EventBits_t bits = xEventGroupWaitBits(network_events, NETWORK_READY_BIT, pdFALSE, pdTRUE, timeout_ticks);
+
+
+	return (bits & NETWORK_READY_BIT) != 0;
+
+
+}
+
+
+
+
+esp_err_t networkInit(void){
 
 	esp_err_t result = nvs_flash_init();
 
@@ -93,7 +122,7 @@ void networkInit(){
 
 		ESP_LOGE(TAG, "NVS Init Failed: %s", esp_err_to_name(result));
 
-		return;
+		return result;
 
 	}
 
@@ -108,7 +137,7 @@ void networkInit(){
 	if(station == NULL){
 
 		ESP_LOGE(TAG, "Failed to create WiFI network Interface");
-		return;
+		return ESP_ERR_NO_MEM;
 	}
 
 
@@ -143,15 +172,32 @@ void networkInit(){
 	};
 
 
+	network_events = xEventGroupCreate();
+	
+	if(network_events == NULL){
+
+		ESP_LOGE(TAG, "Error creating network event group");
+
+		return ESP_ERR_NO_MEM;
+
+	}
+
+
 	ESP_ERROR_CHECK(esp_event_handler_register(WIFI_EVENT, ESP_EVENT_ANY_ID, networkEventHandler, NULL));
 
 	ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_GOT_IP, networkEventHandler, NULL));
+
+	ESP_ERROR_CHECK(esp_event_handler_register(IP_EVENT, IP_EVENT_STA_LOST_IP, networkEventHandler, NULL));
 
 	ESP_ERROR_CHECK(esp_wifi_set_mode(WIFI_MODE_STA));
 
 	ESP_ERROR_CHECK(esp_wifi_set_config(WIFI_IF_STA, &hotspot_config));
 
 	ESP_ERROR_CHECK(esp_wifi_start());
+
+	
+	return ESP_OK;
 }
+
 
 

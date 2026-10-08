@@ -1,6 +1,11 @@
 #ifndef NETWORK_H
 #define NETWORK_H
 
-void networkInit(void);
+#include <stdbool.h>
+#include "esp_err.h"
+#include "freertos/FreeRTOS.h"
+
+esp_err_t networkInit(void);
+bool networkWaitReady(TickType_t timeout_ticks);
 
 #endif
