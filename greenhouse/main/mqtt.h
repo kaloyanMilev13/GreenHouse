@@ -6,4 +6,6 @@
 
 esp_err_t mqttInit(void);
 
+esp_err_t mqttQueueTelemetry(const char *json);
+
 #endif

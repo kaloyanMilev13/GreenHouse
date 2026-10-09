@@ -1,6 +1,8 @@
 #include "mqtt.h"
 
 #include <stdint.h>
+#include <stdbool.h>
+
 #include "esp_err.h"
 #include "esp_event.h"
 #include "esp_event_base.h"
@@ -87,6 +89,7 @@ esp_err_t mqttInit(void){
 	const esp_mqtt_client_config_t config = {
 
 		.broker.address.uri = "mqtt://10.42.0.1:1883",
+		.outbox.limit = 4096,
 	
 	};
 
@@ -126,8 +129,42 @@ esp_err_t mqttInit(void){
 		return result;
 	}
 
+
 	return ESP_OK;
 
 
 
+}
+
+
+esp_err_t mqttQueueTelemetry(const char *json){
+
+
+	if(json == NULL){
+
+		return ESP_ERR_INVALID_ARG;
+
+	}
+
+	if(mqtt_client){
+
+		return ESP_ERR_INVALID_STATE;
+
+	}
+
+	int message_id = esp_mqtt_client_enqueue(mqtt_client, "greenhouse/01/telemetry", json, 0, 1, 0, true);
+
+	if(message_id == -2){
+
+		return ESP_ERR_NO_MEM;
+	}
+
+	if(message_id < 0){
+
+		return ESP_FAIL;
+
+	}
+
+
+	return ESP_OK;
 }

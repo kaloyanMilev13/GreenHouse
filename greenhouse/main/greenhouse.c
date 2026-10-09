@@ -1,9 +1,12 @@
 //C libraries
 #include <complex.h>
+#include <stddef.h>
 #include <stdint.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
+#include <stdbool.h>
+#include <inttypes.h>
 
 //ESP libraries
 #include "esp_err.h"
@@ -16,6 +19,8 @@
 #include "ssd1306.h"
 
 #include "esp_log.h"
+
+#include "esp_timer.h"
 
 
 //User libraries
@@ -157,6 +162,8 @@ void readSensors(LatestReadings *readings, adc_oneshot_unit_handle_t adc_handle)
 	}
 
 
+	readings->sampled_at_us = (uint64_t)esp_timer_get_time();
+
 }
 
 
@@ -169,6 +176,63 @@ void checkValidity(LatestReadings *readings){
 	readings->water_valid = (readings->water_status == ESP_OK) && readings->water >= WATER_LOWER_BOUND && readings->water <= WATER_UPPER_BOUND;
 
 	readings->moist_valid = (readings->moisture_status == ESP_OK) && readings->moisture >= MOISTURE_LOWER_BOUND && readings->moisture <= MOISTURE_UPPER_BOUND;	
+
+}
+
+static bool formatTelemetry(LatestReadings *readings, char *output, size_t output_size){
+
+
+	char temperature[32] = "null";
+	char humidity[32] = "null";
+	char light[32] = "null";
+	char water[32] = "null";
+	char moisture[32] = "null";
+
+	if(readings->air_valid){
+
+		snprintf(temperature, sizeof(temperature), "%.1f", readings->temperature);
+
+		snprintf(humidity, sizeof(humidity), "%.1f", readings->humidity);
+	
+	}
+
+	if(readings->light_valid){
+
+		snprintf(light, sizeof(light), "%d", readings->light);
+
+	}
+
+	if(readings->water_valid){
+
+		snprintf(water, sizeof(water), "%d", readings->water);
+
+	}
+
+	if(readings->moist_valid){
+
+		snprintf(moisture, sizeof(moisture), "%d", readings->moisture);
+
+	}
+
+
+	uint64_t sampled_at_ms = readings->sampled_at_us / 1000ULL;
+
+	int length = snprintf(output, output_size,
+			"{\"sampled_at_ms\":%" PRIu64
+			",\"temperature_c\":%s"
+			",\"humidity_pct\":%s"
+			",\"light_raw\":%s"
+			",\"water_raw\":%s"
+			",\"moisture_raw\":%s}",
+			sampled_at_ms,
+			temperature,
+			humidity,
+			light,
+			water,
+			moisture
+			);
+
+	return length >= 0 && (size_t)length < output_size;
 
 }
 
@@ -220,26 +284,95 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 	
 }
 
+void app_main(void)
+{
+    ESP_ERROR_CHECK(networkInit());
 
+    ESP_LOGI("test", "Waiting for Wi-Fi");
+
+    while (!networkWaitReady(pdMS_TO_TICKS(5000))) {
+        ESP_LOGW("test", "Still waiting for Wi-Fi");
+    }
+
+    ESP_ERROR_CHECK(mqttInit());
+
+    uint32_t sequence = 0;
+
+    while (1) {
+        char payload[128];
+
+        int length = snprintf(
+            payload,
+            sizeof(payload),
+            "{\"test\":true,\"sequence\":%" PRIu32
+            ",\"temperature_c\":23.5,\"humidity_pct\":48.0}",
+            sequence
+        );
+
+        if (length < 0 || (size_t)length >= sizeof(payload)) {
+            ESP_LOGE("test", "Payload formatting failed");
+        } else {
+            esp_err_t result = mqttQueueTelemetry(payload);
+
+            if (result == ESP_OK) {
+                ESP_LOGI("test", "Queued: %s", payload);
+            } else {
+                ESP_LOGW(
+                    "test",
+                    "Could not queue: %s",
+                    esp_err_to_name(result)
+                );
+            }
+        }
+
+        sequence++;
+
+        vTaskDelay(pdMS_TO_TICKS(2000));
+    }
+}
+
+/*
 void app_main(void){
 
+	SSD1306_t oled = {0};
+	//initOLED(&oled);
+
+	//adc_oneshot_unit_handle_t adc_handle = initSensors();
+
+	LatestReadings readings = {0};
+	bool mqtt_started = false;
 
 	ESP_ERROR_CHECK(networkInit());
 
-	ESP_LOGI("greenhouse", "Waiting for an IP address");
+	while (1) {
+		if (!mqtt_started && networkWaitReady(0)) {
+			ESP_ERROR_CHECK(mqttInit());
+			mqtt_started = true;
+		}
 
-	while (!networkWaitReady(pdMS_TO_TICKS(10000))) {
-		ESP_LOGW("greenhouse", "Still waiting for network");
+		//readSensors(&readings, adc_handle);
+		//checkValidity(&readings);
+		//displayResults(&oled, &readings);
+
+		if (mqtt_started) {
+			char payload[256];
+
+			if (formatTelemetry(&readings, payload, sizeof(payload))) {
+
+				esp_err_t result = mqttQueueTelemetry(payload);
+
+				if (result != ESP_OK) {
+					ESP_LOGW("greenhouse", "Telemetry not queued: %s", esp_err_to_name(result));
+				}
+			} else {
+				ESP_LOGE("greenhouse", "Telemetry formatting failed");
+			}
+		}
+
+		vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
 	}
-
-	ESP_LOGI("greenhouse", "Network ready; MQTT can start");
-
-	ESP_LOGI("greenhouse", "Network ready; starting MQTT");
-
-	ESP_ERROR_CHECK(mqttInit());
-
 }
-
+*/
 
 /*
 void app_main(void){
