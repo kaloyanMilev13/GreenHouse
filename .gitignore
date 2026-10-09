@@ -2,7 +2,6 @@
 greenhouse/build/
 build/
 sdkconfig.old
-dependencies.lock
 
 # CMake / Ninja generated files
 CMakeCache.txt
@@ -47,3 +46,5 @@ Thumbs.db
 
 
 /greenhouse/main/wifi_credentials.h
+
+/greenhouse/managed_components/
