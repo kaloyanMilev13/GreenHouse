@@ -9,6 +9,8 @@
 #include "esp_log.h"
 #include "mqtt_client.h"
 
+#define MQTT_STATUS_TOPIC "greenhouse/01/status"
+
 
 static const char *TAG = "mqtt";
 
@@ -28,15 +30,15 @@ static void mqttEventHandler(void *handler_args, esp_event_base_t event_base, in
 		case MQTT_EVENT_CONNECTED: { 
 						   ESP_LOGI(TAG, "Connected to broker");
 
-						   int message_id = esp_mqtt_client_publish(event->client, "greenhouse/01/test", "Hello from ESP", 0, 1, 0);
+						   int message_id = esp_mqtt_client_publish(event->client, MQTT_STATUS_TOPIC, "online", 0, 1, 1);
 
 						   if(message_id < 0){
 
-							ESP_LOGE(TAG, "Couldnt publish test message");
+							ESP_LOGE(TAG, "Couldnt publish online status");
 
 						   }else {
 						   	
-							   ESP_LOGI(TAG, "Test message submitted, id=%d", message_id);
+							   ESP_LOGI(TAG, "Online status submitted, id=%d", message_id);
 						   }
 
 						   break;
@@ -89,7 +91,23 @@ esp_err_t mqttInit(void){
 	const esp_mqtt_client_config_t config = {
 
 		.broker.address.uri = "mqtt://10.42.0.1:1883",
+
+		.session.keepalive = 20,
+
+		.session.last_will = {
+			
+			.topic = MQTT_STATUS_TOPIC,
+			.msg = "offline",
+			.msg_len = 0,
+			.qos = 1,
+			.retain = 1,
+
+		},
+
+
 		.outbox.limit = 4096,
+
+
 	
 	};
 
@@ -146,7 +164,7 @@ esp_err_t mqttQueueTelemetry(const char *json){
 
 	}
 
-	if(mqtt_client){
+	if(mqtt_client == NULL){
 
 		return ESP_ERR_INVALID_STATE;
 

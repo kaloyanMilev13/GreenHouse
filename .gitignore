@@ -48,3 +48,8 @@ Thumbs.db
 /greenhouse/main/wifi_credentials.h
 
 /greenhouse/managed_components/
+
+
+
+# Node.js dependencies
+node_modules/
