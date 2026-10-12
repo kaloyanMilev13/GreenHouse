@@ -193,7 +193,7 @@ static bool formatTelemetry(LatestReadings *readings, char *output, size_t outpu
 		snprintf(temperature, sizeof(temperature), "%.1f", readings->temperature);
 
 		snprintf(humidity, sizeof(humidity), "%.1f", readings->humidity);
-	
+
 	}
 
 	if(readings->light_valid){
@@ -265,12 +265,12 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 		ssd1306_display_text(oled, 2, "Light: ERROR", strlen("Light: ERROR"), false);
 	}
 
-	
+
 	if(readings->water_valid){
 		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: %d", readings->water);
 		ssd1306_display_text(oled, 3, readingsBuffer, strlen(readingsBuffer), false);
 	}else {
-	
+
 		ssd1306_display_text(oled, 3, "Water: ERROR", strlen("Water: ERROR"), false);
 	}
 
@@ -281,126 +281,130 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 		ssd1306_display_text(oled, 4, "Soil: ERROR", strlen("Soil: ERROR"), false);
 	}
-	
+
 }
 
 void app_main(void)
 {
-    ESP_ERROR_CHECK(networkInit());
-
-    ESP_LOGI("test", "Waiting for Wi-Fi");
-
-    while (!networkWaitReady(pdMS_TO_TICKS(5000))) {
-        ESP_LOGW("test", "Still waiting for Wi-Fi");
-    }
-
-    ESP_ERROR_CHECK(mqttInit());
-
-    uint32_t sequence = 0;
-
-    while (1) {
-        char payload[128];
-
-        int length = snprintf(
-            payload,
-            sizeof(payload),
-            "{\"test\":true,\"sequence\":%" PRIu32
-            ",\"temperature_c\":23.5,\"humidity_pct\":48.0}",
-            sequence
-        );
-
-        if (length < 0 || (size_t)length >= sizeof(payload)) {
-            ESP_LOGE("test", "Payload formatting failed");
-        } else {
-            esp_err_t result = mqttQueueTelemetry(payload);
-
-            if (result == ESP_OK) {
-                ESP_LOGI("test", "Queued: %s", payload);
-            } else {
-                ESP_LOGW(
-                    "test",
-                    "Could not queue: %s",
-                    esp_err_to_name(result)
-                );
-            }
-        }
-
-        sequence++;
-
-        vTaskDelay(pdMS_TO_TICKS(2000));
-    }
-}
-
-/*
-void app_main(void){
-
-	SSD1306_t oled = {0};
-	//initOLED(&oled);
-
-	//adc_oneshot_unit_handle_t adc_handle = initSensors();
-
-	LatestReadings readings = {0};
-	bool mqtt_started = false;
-
 	ESP_ERROR_CHECK(networkInit());
 
+	ESP_LOGI("test", "Waiting for Wi-Fi");
+
+	while (!networkWaitReady(pdMS_TO_TICKS(5000))) {
+		ESP_LOGW("test", "Still waiting for Wi-Fi");
+	}
+
+	ESP_ERROR_CHECK(mqttInit());
+
 	while (1) {
-		if (!mqtt_started && networkWaitReady(0)) {
-			ESP_ERROR_CHECK(mqttInit());
-			mqtt_started = true;
-		}
+		char payload[384];
 
-		//readSensors(&readings, adc_handle);
-		//checkValidity(&readings);
-		//displayResults(&oled, &readings);
+		uint64_t sampled_at_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
 
-		if (mqtt_started) {
-			char payload[256];
+		int length = snprintf(
+				payload,
+				sizeof(payload),
+				"{\"test\":true"
+				",\"sampled_at_ms\":%" PRIu64
+				",\"temperature_c\":23.5"
+				",\"humidity_pct\":48.0"
+				",\"water_low\":false"
+				",\"light_pct\":65.0"
+				",\"moisture_pct\":42.0"
+				",\"pump_on\":false}",
+				sampled_at_ms
+				);
 
-			if (formatTelemetry(&readings, payload, sizeof(payload))) {
+		if (length < 0 || (size_t)length >= sizeof(payload)) {
+			ESP_LOGE("test", "Payload formatting failed");
+		} else {
+			esp_err_t result = mqttQueueTelemetry(payload);
 
-				esp_err_t result = mqttQueueTelemetry(payload);
-
-				if (result != ESP_OK) {
-					ESP_LOGW("greenhouse", "Telemetry not queued: %s", esp_err_to_name(result));
-				}
+			if (result == ESP_OK) {
+				ESP_LOGI("test", "Queued: %s", payload);
 			} else {
-				ESP_LOGE("greenhouse", "Telemetry formatting failed");
+				ESP_LOGW(
+						"test",
+						"Could not queue: %s",
+						esp_err_to_name(result)
+					);
 			}
 		}
 
-		vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
+		vTaskDelay(pdMS_TO_TICKS(2000));
 	}
+}
+
+/*
+   void app_main(void){
+
+   SSD1306_t oled = {0};
+//initOLED(&oled);
+
+//adc_oneshot_unit_handle_t adc_handle = initSensors();
+
+LatestReadings readings = {0};
+bool mqtt_started = false;
+
+ESP_ERROR_CHECK(networkInit());
+
+while (1) {
+if (!mqtt_started && networkWaitReady(0)) {
+ESP_ERROR_CHECK(mqttInit());
+mqtt_started = true;
+}
+
+//readSensors(&readings, adc_handle);
+//checkValidity(&readings);
+//displayResults(&oled, &readings);
+
+if (mqtt_started) {
+char payload[256];
+
+if (formatTelemetry(&readings, payload, sizeof(payload))) {
+
+esp_err_t result = mqttQueueTelemetry(payload);
+
+if (result != ESP_OK) {
+ESP_LOGW("greenhouse", "Telemetry not queued: %s", esp_err_to_name(result));
+}
+} else {
+ESP_LOGE("greenhouse", "Telemetry formatting failed");
+}
+}
+
+vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
+}
 }
 */
 
 /*
-void app_main(void){
-	//ESP32-WROOM-32D
+   void app_main(void){
+//ESP32-WROOM-32D
 
 
-	SSD1306_t oled = {0};
+SSD1306_t oled = {0};
 
-	initOLED(&oled);
+initOLED(&oled);
 
-	adc_oneshot_unit_handle_t adc_handle = initSensors();
+adc_oneshot_unit_handle_t adc_handle = initSensors();
 
-	LatestReadings readings = {0};
+LatestReadings readings = {0};
 
 
 
-	while(1){
+while(1){
 
-		readSensors(&readings, adc_handle);
+readSensors(&readings, adc_handle);
 
-		checkValidity(&readings);
+checkValidity(&readings);
 
-		displayResults(&oled, &readings);
+displayResults(&oled, &readings);
 
-		//Delay
-		vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
+//Delay
+vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
 
-	}
+}
 
 }
 
