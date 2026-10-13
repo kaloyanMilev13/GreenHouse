@@ -31,6 +31,11 @@
 
 #define SENSOR_READ_INTERVAL_MS 500
 
+#define WATERING_DURATION_MS 2000ULL
+
+#define WATERING_COOLDOWN_MS 60000ULL //timer for spreading the water in the soil
+
+
 
 //Oled
 #define OLED_SDA_GPIO GPIO_NUM_21
@@ -54,11 +59,10 @@
 //Lower Bounds
 #define MARK_LIGHT_LOW 0 //tested
 #define MARK_WATER_LOW 1200 //tested
-#define MARK_MOISTURE_LOW 0 
+#define MARK_MOISTURE_DRY 0 
 
 //Upper Bounds
 #define MARK_LIGHT_HIGH 2400 //tested
-#define MARK_MOISTURE_HIGH 4095
 #define MARK_WATER_MAX 1700 //tested
 
 
@@ -78,6 +82,8 @@ typedef struct {
 	bool water_low;
 
 	int moisture;
+	float moisture_pct;
+	bool activate_pump;
 
 	esp_err_t dht_status;
 	esp_err_t light_status;
@@ -231,6 +237,7 @@ void validateReadings(LatestReadings *readings){
 
 	verifyReadings(readings);
 
+
 	if(readings->light_valid){
 
 		//translate light adc to percentage
@@ -247,7 +254,76 @@ void validateReadings(LatestReadings *readings){
 			readings->water_low = true;	
 	}
 
+
+
+	if(readings->moist_valid){
+
+		readings->activate_pump = readings->moist_valid && readings->water_valid && !readings->water_low && readings->moisture <= MARK_MOISTURE_DRY;
+
+	}else {
 	
+		readings->activate_pump = false;
+	}
+
+	
+
+}
+
+void updateWatering(LatestReadings *readings, bool *pump_on){
+
+
+	static uint64_t started_at_ms = 0;
+	static uint64_t stopped_at_ms = 0;
+	static bool cooling_down = false; //retain the value between calls
+
+	uint64_t now_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
+
+
+	bool should_water = (readings->moist_valid) && (readings->water_valid) && !(readings->water_low) && (readings->moisture <= MARK_MOISTURE_DRY);
+
+	if(*pump_on){
+		
+		bool time_expired = now_ms - started_at_ms >= WATERING_DURATION_MS;
+
+		if(!should_water || time_expired){ // enought time watering or shouldnt water now
+				
+			setPump(false);
+
+			stopped_at_ms = now_ms;
+
+			cooling_down = true; 
+
+			ESP_LOGI("Watering", "Pump stopped, cooldown started");
+
+		}
+
+		return;
+	}
+
+
+	if(cooling_down){
+		
+		bool cooldown_finished = now_ms - stopped_at_ms >= WATERING_COOLDOWN_MS;
+
+		if(!cooldown_finished){
+
+			return;
+
+		}	
+	
+
+		cooling_down = false;
+	}
+
+	if(should_water){
+		
+		setPump(true);
+
+		started_at_ms = now_ms;
+
+		ESP_LOGI("Watering", "Pump started");
+
+	}
 
 }
 
@@ -259,6 +335,7 @@ static bool formatTelemetry(LatestReadings *readings, char *output, size_t outpu
 	char light[32] = "null";
 	char water[32] = "null";
 	char moisture[32] = "null";
+
 
 	if(readings->air_valid){
 
@@ -282,7 +359,7 @@ static bool formatTelemetry(LatestReadings *readings, char *output, size_t outpu
 
 	if(readings->moist_valid){
 
-		snprintf(moisture, sizeof(moisture), "%d", readings->moisture);
+		snprintf(moisture, sizeof(moisture), "%.1f", readings->moisture_pct);
 
 	}
 
@@ -333,7 +410,7 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 	if(readings->light_valid){
 
-		snprintf(readingsBuffer, sizeof(readingsBuffer), "Light: %d", readings->light);
+		snprintf(readingsBuffer, sizeof(readingsBuffer), "Light: %.1f", readings->light_pct);
 		ssd1306_display_text(oled, 2, readingsBuffer, strlen(readingsBuffer), false);
 
 	}else{
@@ -362,153 +439,70 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 void app_main(void){
 
-
 	initPump();
 
 	adc_oneshot_unit_handle_t adc_handle = initSensors();
 
-	LatestReadings readings = {0};
+	LatestReadings readings = {
+		.water_low = true,
+		.activate_pump = false,
+	};
 
-/*	ESP_ERROR_CHECK(networkInit());
+	bool mqtt_started = false;
 
-	ESP_LOGI("test", "Waiting for Wi-Fi");
+	ESP_ERROR_CHECK(networkInit());
+	
+	ESP_LOGI("greenhouse_WiFi", "WiFi initialization started!");
 
-	while (!networkWaitReady(pdMS_TO_TICKS(5000))) {
-		ESP_LOGW("test", "Still waiting for Wi-Fi");
-	}
-
-	ESP_ERROR_CHECK(mqttInit()); */
-
-	while (1) {
+	while(1){
 
 		readSensors(&readings, adc_handle);
-		
+
 		validateReadings(&readings);
 
-		if (readings.water_status == ESP_OK) {
-			ESP_LOGI("calibration", "light_raw=%d", readings.light);
-			ESP_LOGI("calibration", "light_pct = %.1f", readings.light_pct);
-		} else {
-			ESP_LOGW("calibration", "water read failed: %s",
-					esp_err_to_name(readings.water_status));
-		}
+		updateWatering(&readings, &pump_on);
 
+		if(!mqtt_started && networkWaitReady(0)){
 
+			esp_err_t result = mqttInit();
 
-/*		char payload[384];
+			if(result == ESP_OK){
+				mqtt_started = true;
+				ESP_LOGI("greenhouse_MQTT", "MQTT client started");
+			}else{
 
-		uint64_t sampled_at_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
-
-		int length = snprintf(
-				payload,
-				sizeof(payload),
-				"{\"test\":true"
-				",\"sampled_at_ms\":%" PRIu64
-				",\"temperature_c\":23.5"
-				",\"humidity_pct\":48.0"
-				",\"water_low\":false"
-				",\"light_pct\":65.0"
-				",\"moisture_pct\":42.0"
-				",\"pump_on\":false}",
-				sampled_at_ms
-				);
-
-		if (length < 0 || (size_t)length >= sizeof(payload)) {
-			ESP_LOGE("test", "Payload formatting failed");
-		} else {
-			esp_err_t result = mqttQueueTelemetry(payload);
-
-			if (result == ESP_OK) {
-				ESP_LOGI("test", "Queued: %s", payload);
-			} else {
-				ESP_LOGW(
-						"test",
-						"Could not queue: %s",
-						esp_err_to_name(result)
-					);
+				ESP_LOGW("greenhouse_MQTT", "MQTT initialization failed: %s", esp_err_to_name(result));
 			}
 		}
 
-*/
 
-		vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
+		char payload[512];
+
+		if(!formatTelemetry(&readings, payload, sizeof(payload))){
+			ESP_LOGE("greenhouse_TELEMETRY", "Payload formatting failed");
+		}else{
+			
+			ESP_LOGI("greenhouse_TELEMETRY", "%s", payload);
+
+
+			if(mqtt_started){
+
+				esp_err_t result = mqttQueueTelemetry(payload);
+
+				if(result != ESP_OK){
+					
+					ESP_LOGW("greenhouse_MQTT_TELEMETRY", "Couldn't queue telemetry: %s", esp_err_to_name(result));
+
+				}
+			}
+		}
+
+
+		vTaskDelay(SENSOR_READ_INTERVAL_MS);
+
 	}
-}
-
-/*
-   void app_main(void){
-
-   SSD1306_t oled = {0};
-//initOLED(&oled);
-
-//adc_oneshot_unit_handle_t adc_handle = initSensors();
-
-LatestReadings readings = {0};
-bool mqtt_started = false;
-
-ESP_ERROR_CHECK(networkInit());
-
-while (1) {
-if (!mqtt_started && networkWaitReady(0)) {
-ESP_ERROR_CHECK(mqttInit());
-mqtt_started = true;
-}
-
-//readSensors(&readings, adc_handle);
-//checkValidity(&readings);
-//displayResults(&oled, &readings);
-
-if (mqtt_started) {
-char payload[256];
-
-if (formatTelemetry(&readings, payload, sizeof(payload))) {
-
-esp_err_t result = mqttQueueTelemetry(payload);
-
-if (result != ESP_OK) {
-ESP_LOGW("greenhouse", "Telemetry not queued: %s", esp_err_to_name(result));
-}
-} else {
-ESP_LOGE("greenhouse", "Telemetry formatting failed");
-}
-}
-
-vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
-}
-}
-*/
-
-/*
-   void app_main(void){
-//ESP32-WROOM-32D
-
-
-SSD1306_t oled = {0};
-
-initOLED(&oled);
-
-adc_oneshot_unit_handle_t adc_handle = initSensors();
-
-LatestReadings readings = {0};
-
-
-
-while(1){
-
-readSensors(&readings, adc_handle);
-
-checkValidity(&readings);
-
-displayResults(&oled, &readings);
-
-//Delay
-vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
 
 }
-
-}
-
-*/
 
 
 
