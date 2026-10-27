@@ -1,0 +1,17 @@
+Firmware host execution — 26 October 2026
+Source SHA256 275957e20d8e52d3284692c17963c80fbcd54c4624ab7239e1aec3c40ba62584
+Hardware, clock and MQTT calls replaced by controlled adapters; actual application function bodies retained.
+PASS VER-01: conversion endpoints, clamping, finite/range checks, 32-sample rounded mean, ADC error
+PASS VER-02: eight reservoir boundary/error inputs block or allow the start request correctly
+PASS VER-03: stays on at 1999 ms, stops on check at 2000 ms, blocks restart at 59999 ms, allows at 60000 ms cooldown
+LIMIT VER-03: a control check at 2007 ms records 2007 ms; this is not a measured physical pump duration
+PASS VER-04: startup commands OFF; invalid control inputs prevent starts
+PASS VER-03/04: stop at next check with soil_wet reason
+PASS VER-03/04: stop at next check with low_water reason
+PASS VER-03/04: stop at next check with invalid_sensor reason
+GAP VER-04: soil ADC 4095 is accepted and starts watering; actual disconnected-sensor voltage was not measured
+PASS VER-05: normal, low-water and control-sensor fault display branches; soil shown as raw ADC
+PASS VER-06: telemetry values, nulls, timestamp, buffer bounds and event argument guard
+GAP VER-05/08: one full main-loop cycle, no OLED write while pump ON, telemetry sent after OFF; queue failures=none
+PASS VER-10 local control / GAP VER-05: one full main-loop cycle, no OLED write while pump ON, telemetry sent after OFF; queue failures=injected
+13/13 scenario assertions completed; GAP/LIMIT observations are not requirement passes.

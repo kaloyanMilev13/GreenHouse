@@ -1,0 +1,7 @@
+Dashboard SQL execution — 26 October 2026
+Source SHA256 57f744c3b803f680a79612b8c4871ce657fee6159660248128108e15efa40b14
+PASS: 56 SQL assertions; all 14 panels executed in Real and Test modes.
+PASS: inclusive air thresholds, low-water and null warnings, 30-second freshness boundary, latest tie break, mode separation and three-cycle history order.
+GAP: fresh database receipt marks a delayed/old-uptime payload OK; this does not establish acquisition freshness.
+GAP: no light alert for values 0, 100 or NULL.
+Scope: actual query text, with Grafana mode/time macro substitutions, ran on disposable PostgreSQL fixture tables. The assumed UNIQUE key allowed duplicate-event suppression. This is not evidence of the deployed schema, live Grafana display, end-to-end latency or backend restart persistence.

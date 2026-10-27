@@ -1,0 +1,204 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="files-ownership" name="L0 | Source files follow the runtime responsibilities">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FILES AND MODULES / L0" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Source files follow the runtime responsibilities" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Where is each part of the implemented system maintained?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  Repository source tree; greenhouse/main/CMakeLists.txt; backend/package.json  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="files_0_0" value="&lt;b&gt;Runtime area&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="195" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_0_1" value="&lt;b&gt;Files&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="195" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_0_2" value="&lt;b&gt;Responsibility&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="195" width="560" height="92" />
+        </mxCell>
+        <mxCell id="files_1_0" value="ESP32 application" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="287" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_1_1" value="greenhouse/main/greenhouse.c" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="287" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_1_2" value="Sensors, validation, watering, OLED,&lt;br&gt;payload formatting and main loop" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="287" width="560" height="92" />
+        </mxCell>
+        <mxCell id="files_2_0" value="ESP32 networking" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="379" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_2_1" value="greenhouse/main/network.c + network.h&lt;br&gt;greenhouse/main/mqtt.c + mqtt.h" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="379" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_2_2" value="Wi-Fi initialization and retry events&lt;br&gt;MQTT startup, enqueue APIs, status events" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="379" width="560" height="92" />
+        </mxCell>
+        <mxCell id="files_3_0" value="Build and hardware libraries" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="471" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_3_1" value="greenhouse/main/CMakeLists.txt&lt;br&gt;idf_component.yml; sdkconfig" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="471" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_3_2" value="Build three C sources; configure ESP-IDF&lt;br&gt;DHT, SSD1306 and MQTT dependencies" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="471" width="560" height="92" />
+        </mxCell>
+        <mxCell id="files_4_0" value="Host ingest and transport" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="563" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_4_1" value="backend/index.js; package.json&lt;br&gt;mqtt-test.sh" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="563" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_4_2" value="MQTT.js consumer + pg database inserts&lt;br&gt;Launch broker and diagnostic subscriber" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="563" width="560" height="92" />
+        </mxCell>
+        <mxCell id="files_5_0" value="Dashboard and design" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="655" width="300" height="92" />
+        </mxCell>
+        <mxCell id="files_5_1" value="dashboard/greenhouse-overview.json&lt;br&gt;doc/design/Greenhouse_Hardware/" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="655" width="620" height="92" />
+        </mxCell>
+        <mxCell id="files_5_2" value="Grafana queries, charts and status&lt;br&gt;KiCad electrical schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="980" y="655" width="560" height="92" />
+        </mxCell>
+        <mxCell id="file-note" value="&lt;b&gt;Current boundaries&lt;/b&gt;&lt;br&gt;Sensors, watering and display remain inside greenhouse.c. No separate modules exist for them. Credentials are private configuration." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="762" width="1480" height="55" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,files-calls">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="files-calls" name="L1 | Public interfaces connect three firmware source files">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FILES AND MODULES / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Public interfaces connect three firmware source files" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Which calls cross module boundaries, and which connections are messages?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c #includes and calls; mqtt.h; network.h; backend/index.js  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="app" value="&lt;b&gt;greenhouse.c&lt;/b&gt;&lt;br&gt;app_main()&lt;br&gt;Sensor / watering / display functions" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="250" width="490" height="155" />
+        </mxCell>
+        <mxCell id="net" value="&lt;b&gt;network.h -&amp;gt; network.c&lt;/b&gt;&lt;br&gt;networkInit()&lt;br&gt;networkWaitReady(timeout) [unused]" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="770" y="200" width="770" height="115" />
+        </mxCell>
+        <mxCell id="mqtt" value="&lt;b&gt;mqtt.h -&amp;gt; mqtt.c&lt;/b&gt;&lt;br&gt;mqttInit()&lt;br&gt;mqttQueueTelemetry(json)&lt;br&gt;mqttQueueWateringEvent(json)" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="770" y="420" width="770" height="145" />
+        </mxCell>
+        <mxCell id="internal" value="&lt;b&gt;Internal control dependencies&lt;/b&gt;&lt;br&gt;readSensors -&amp;gt; validateReadings&lt;br&gt;validateReadings -&amp;gt; verifyReadings&lt;br&gt;updateWatering -&amp;gt; setPump, sendWateringEvent&lt;br&gt;sendWateringEvent -&amp;gt; mqttQueueWateringEvent" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="530" width="490" height="230" />
+        </mxCell>
+        <mxCell id="host" value="&lt;b&gt;backend/index.js&lt;/b&gt;&lt;br&gt;MQTT.js receives messages&lt;br&gt;pg writes PostgreSQL; Grafana reads it" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="930" y="680" width="610" height="95" />
+        </mxCell>
+        <mxCell id="e0" value="Initialization call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="app" target="net">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="660" y="327" />
+              <mxPoint x="660" y="257" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="Start / enqueue calls" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="app" target="mqtt">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="640" y="327" />
+              <mxPoint x="640" y="492" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="Via broker, not a C call" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="mqtt" target="host">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="independent" value="network.c and mqtt.c do not call each other. ESP-IDF Wi-Fi / TCP services provide the network used by the MQTT client." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="785" width="1480" height="25" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,files-ownership">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,files-data">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="files-data" name="L2 | Two data structures cross the local function boundaries">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FILES AND MODULES / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Two data structures cross the local function boundaries" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="What state is kept in RAM, and who reads or changes it?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c: LatestReadings, Watering, pump_on; updateWatering() static variables  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="latest" value="&lt;b&gt;LatestReadings&lt;/b&gt;&lt;br&gt;Values: temperature, humidity; light / water / soil ADC&lt;br&gt;Derived: light_pct, moisture_pct, water_low, activate_pump&lt;br&gt;Driver results: dht / light / water / moisture status&lt;br&gt;Flags: air_valid, light_valid, water_valid, moist_valid&lt;br&gt;Timestamp: sampled_at_us" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="200" width="730" height="245" />
+        </mxCell>
+        <mxCell id="event" value="&lt;b&gt;Watering&lt;/b&gt;&lt;br&gt;boot_id, cycle_id&lt;br&gt;started, occurred_at_ms&lt;br&gt;duration_ms, reason, test&lt;br&gt;Temporary struct built at a transition" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="940" y="200" width="600" height="245" />
+        </mxCell>
+        <mxCell id="readers" value="&lt;b&gt;Readings lifecycle&lt;/b&gt;&lt;br&gt;readSensors writes raw values + statuses&lt;br&gt;validateReadings writes validity + derived values&lt;br&gt;updateWatering reads safety inputs&lt;br&gt;displayResults and formatTelemetry read results" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="535" width="730" height="225" />
+        </mxCell>
+        <mxCell id="state" value="&lt;b&gt;Persistent state within one boot&lt;/b&gt;&lt;br&gt;Global pump_on is updated by setPump()&lt;br&gt;Global watering_boot_id labels event identity&lt;br&gt;updateWatering static: cycle_id, started_at_ms,&lt;br&gt;stopped_at_ms and cooling_down&lt;br&gt;No state is persisted across reset" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="940" y="535" width="600" height="225" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="latest" target="readers">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="Used to construct" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="state" target="event">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,files-calls">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="03 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

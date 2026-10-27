@@ -1,0 +1,224 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="wiring-signals" name="L1 | Signal wiring: match the firmware to the schematic">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / HARDWARE WIRING / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Signal wiring: match the firmware to the schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="GPIO numbers identify signals; U1/Jx numbers identify the current KiCad symbols." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c pin/channel definitions; KiCad netlist export; M5Stack U101 PinMap  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="wiring_0_0" value="&lt;b&gt;Function / module&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="195" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_0_1" value="&lt;b&gt;ESP32 signal / U1 pin&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="195" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_0_2" value="&lt;b&gt;Module connection&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="195" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_0_3" value="&lt;b&gt;Evidence / status&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="195" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_1_0" value="Soil moisture / J1 U101" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="265" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_1_1" value="GPIO33 / U1 pin 8&lt;br&gt;ADC1 channel 5" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="265" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_1_2" value="J1 pin 4: analog output&lt;br&gt;White Grove wire" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="265" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_1_3" value="Connected in schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="265" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_2_0" value="Pump enable / J1 U101" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="335" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_2_1" value="GPIO16 / U1 pin 27&lt;br&gt;HIGH = ON; LOW = OFF" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="335" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_2_2" value="J1 pin 3: PUMP_EN&lt;br&gt;Yellow Grove wire" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="335" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_2_3" value="Required by firmware&lt;br&gt;MISSING schematic net" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="335" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_3_0" value="Air sensor / J3 DHT11" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="405" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_3_1" value="GPIO17 / U1 pin 28" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="405" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_3_2" value="J3 pin 2: data" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="405" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_3_3" value="Connected in schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="405" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_4_0" value="Reservoir / J4 K-0135" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="475" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_4_1" value="GPIO35 / U1 pin 6&lt;br&gt;ADC1 channel 7" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="475" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_4_2" value="J4 pin 3: analog signal" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="475" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_4_3" value="Connected in schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="475" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_5_0" value="Light sensor" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="545" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_5_1" value="GPIO34 / U1 pin 5&lt;br&gt;ADC1 channel 6" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="545" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_5_2" value="Analog output&lt;br&gt;Module pin not documented" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="545" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_5_3" value="Required by firmware&lt;br&gt;Module + net MISSING" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="545" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_6_0" value="OLED / J2 SSD1306" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="615" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_6_1" value="GPIO21 / U1 pin 33" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="615" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_6_2" value="J2 pin 4: SDA" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="615" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_6_3" value="Connected in schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="615" width="365" height="70" />
+        </mxCell>
+        <mxCell id="wiring_7_0" value="OLED / J2 SSD1306" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="685" width="345" height="70" />
+        </mxCell>
+        <mxCell id="wiring_7_1" value="GPIO22 / U1 pin 36" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="405" y="685" width="380" height="70" />
+        </mxCell>
+        <mxCell id="wiring_7_2" value="J2 pin 3: SCL" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="785" y="685" width="390" height="70" />
+        </mxCell>
+        <mxCell id="wiring_7_3" value="Connected in schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1175" y="685" width="365" height="70" />
+        </mxCell>
+        <mxCell id="pins" value="Verify the actual board and module silkscreen before using symbol pin numbers as physical connector positions. No hardware was rewired." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#A45B28;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="770" width="1480" height="35" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,wiring-power">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 02" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wiring-power" name="L2 | Power and ground: document the existing nets">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / HARDWARE WIRING / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Power and ground: document the existing nets" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="These are schematic connections; the installed supply arrangement still needs confirmation." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  Greenhouse_Hardware.kicad_sch netlist; M5Stack U101 PinMap  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="power_0_0" value="&lt;b&gt;Module / rail&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="195" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_0_1" value="&lt;b&gt;Schematic connection&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="195" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_0_2" value="&lt;b&gt;Interpretation / outstanding detail&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="195" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_1_0" value="ESP32 / U1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="275" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_1_1" value="3V3: pin 1; 5V: pin 19&lt;br&gt;GND: pins 14, 32 and 38" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="275" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_1_2" value="Board source and supply arrangement&lt;br&gt;are not established by this schematic" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="275" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_2_0" value="Watering unit / J1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="355" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_2_1" value="Pin 2 -&amp;gt; +5V (red)&lt;br&gt;Pin 1 -&amp;gt; GND (black)" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="355" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_2_2" value="5V net also reaches U1 pin 19&lt;br&gt;Pump power is separate from GPIO16 control" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="355" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_3_0" value="OLED / J2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="435" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_3_1" value="Pin 1 -&amp;gt; +3V3&lt;br&gt;Pin 2 -&amp;gt; GND" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="435" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_3_2" value="SDA21 and SCL22 are separate signal nets" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="435" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_4_0" value="DHT11 / J3" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="515" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_4_1" value="Pin 1 -&amp;gt; +3V3&lt;br&gt;Pin 3 -&amp;gt; GND" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="515" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_4_2" value="J3 pin 2 is the data connection" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="515" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_5_0" value="Reservoir sensor / J4" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="595" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_5_1" value="Pin 2 -&amp;gt; +3V3&lt;br&gt;Pin 1 -&amp;gt; GND" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="595" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_5_2" value="J4 pin 3 is the analog connection" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="595" width="565" height="80" />
+        </mxCell>
+        <mxCell id="power_6_0" value="Light sensor" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="675" width="365" height="80" />
+        </mxCell>
+        <mxCell id="power_6_1" value="No power or ground net represented" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="425" y="675" width="550" height="80" />
+        </mxCell>
+        <mxCell id="power_6_2" value="Module type, connector pins and power&lt;br&gt;need to be added to the hardware design" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="975" y="675" width="565" height="80" />
+        </mxCell>
+        <mxCell id="gnd" value="J1-J4 share GND with U1 in the schematic. Connector pin order can vary between physical module variants." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="775" width="1480" height="30" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,wiring-signals">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 02" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

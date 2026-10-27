@@ -1,0 +1,261 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="firmware-overview" name="L0 | One local loop owns the greenhouse">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FIRMWARE FLOW / L0" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="One local loop owns the greenhouse" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="What does the application do in each pass?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c: app_main()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <UserObject id="init" label="&lt;b&gt;Initialize&lt;/b&gt;&lt;br&gt;Pump OFF; sensors; OLED; network" link="data:page/id,firmware-startup">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="260" width="420" height="110" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="read" value="&lt;b&gt;Measure and interpret&lt;/b&gt;&lt;br&gt;Read sensors; check validity" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="540" y="260" width="420" height="110" />
+        </mxCell>
+        <mxCell id="control" value="&lt;b&gt;Manage watering&lt;/b&gt;&lt;br&gt;Start, monitor and stop the pump" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="260" width="420" height="110" />
+        </mxCell>
+        <mxCell id="display" value="&lt;b&gt;Refresh local status&lt;/b&gt;&lt;br&gt;OLED readings and warnings" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1020" y="510" width="420" height="110" />
+        </mxCell>
+        <mxCell id="queue" value="&lt;b&gt;Queue a reading&lt;/b&gt;&lt;br&gt;MQTT sends in the background" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="540" y="510" width="420" height="110" />
+        </mxCell>
+        <mxCell id="wait" value="&lt;b&gt;Wait 5 seconds&lt;/b&gt;&lt;br&gt;Reached with the pump OFF" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="510" width="420" height="110" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="init" target="read">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="read" target="control">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="control" target="display">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="display" target="queue">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="queue" target="wait">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="Repeat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait" target="read">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="270" y="440" />
+              <mxPoint x="750" y="440" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="abstract" value="&lt;b&gt;This page groups steps by responsibility&lt;/b&gt;&lt;br&gt;The detailed loop page shows the first OLED update before watering, MQTT initialization retries, and the fast inner loop. A pass takes work time + any watering time + the 5-second delay." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="700" width="1480" height="90" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,firmware-startup">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="firmware-startup" name="L1 | Startup establishes safe outputs before normal work">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FIRMWARE FLOW / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Startup establishes safe outputs before normal work" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="In what order does app_main() initialize the prototype?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c: app_main(), initPump(), initSensors(), initOLED(); network.c: networkInit()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="start" value="&lt;b&gt;Power on / reset&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="225" width="290" height="75" />
+        </mxCell>
+        <mxCell id="pump" value="&lt;b&gt;initPump()&lt;/b&gt;&lt;br&gt;Set GPIO16 LOW&lt;br&gt;Configure output; set LOW again&lt;br&gt;pump_on = false" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="450" y="210" width="430" height="125" />
+        </mxCell>
+        <mxCell id="adc" value="&lt;b&gt;initSensors()&lt;/b&gt;&lt;br&gt;Create ADC1, 12-bit, 12 dB&lt;br&gt;Configure channels 6, 7 and 5" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="210" width="530" height="125" />
+        </mxCell>
+        <mxCell id="oled" value="&lt;b&gt;initOLED()&lt;/b&gt;&lt;br&gt;I2C: SDA21, SCL22&lt;br&gt;128 x 64 display; show Hello" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1010" y="420" width="530" height="105" />
+        </mxCell>
+        <mxCell id="data" value="&lt;b&gt;Initialize local data&lt;/b&gt;&lt;br&gt;readings = zeroed&lt;br&gt;water_low = true&lt;br&gt;mqtt_started = false" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="450" y="410" width="430" height="125" />
+        </mxCell>
+        <mxCell id="net" value="&lt;b&gt;networkInit()&lt;/b&gt;&lt;br&gt;NVS, event loop, Wi-Fi&lt;br&gt;Returns without waiting for IP" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="410" width="290" height="125" />
+        </mxCell>
+        <mxCell id="id" value="&lt;b&gt;Create boot identity&lt;/b&gt;&lt;br&gt;Two random 32-bit values&lt;br&gt;16 lowercase hex characters" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="640" width="480" height="110" />
+        </mxCell>
+        <mxCell id="loop" value="&lt;b&gt;Enter the main loop&lt;/b&gt;&lt;br&gt;mqttInit() is attempted&lt;br&gt;at the beginning of the first pass" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="780" y="640" width="760" height="110" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="pump">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="pump" target="adc">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="adc" target="oled">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="oled" target="data">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e4" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="data" target="net">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="net" target="id">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e6" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="id" target="loop">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="fail" value="Initialization uses ESP_ERROR_CHECK: hardware or network setup failure can abort startup." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#A45B28;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="780" width="1480" height="30" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,firmware-overview">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,firmware-main">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="firmware-main" name="L2 | app_main(): the actual execution order">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / FIRMWARE FLOW / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="app_main(): the actual execution order" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="How do the slow monitoring pass and fast watering checks fit together?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  greenhouse.c: app_main(), lines 693-803; mqttInit(); formatTelemetry()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="mqtt" value="&lt;b&gt;MQTT not started?&lt;/b&gt;&lt;br&gt;Try mqttInit(); set flag on success&lt;br&gt;Failure: log and continue this pass" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="205" width="420" height="100" />
+        </mxCell>
+        <mxCell id="read" value="&lt;b&gt;Read + validate&lt;/b&gt;&lt;br&gt;readSensors(..., true)&lt;br&gt;validateReadings()" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="590" y="205" width="420" height="100" />
+        </mxCell>
+        <mxCell id="pre" value="&lt;b&gt;Initial OLED update&lt;/b&gt;&lt;br&gt;displayResults()&lt;br&gt;If activate_pump: show checking" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="205" width="420" height="100" />
+        </mxCell>
+        <mxCell id="water" value="&lt;b&gt;updateWatering()&lt;/b&gt;&lt;br&gt;Evaluate OFF / ON / cooldown" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="395" width="420" height="85" />
+        </mxCell>
+        <mxCell id="on" value="&lt;b&gt;Pump ON?&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=rhombus;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="650" y="385" width="300" height="115" />
+        </mxCell>
+        <mxCell id="fast" value="&lt;b&gt;Fast watering loop&lt;/b&gt;&lt;br&gt;Check deadline; read ADCs; validate;&lt;br&gt;check stop conditions; delay 50 ms&lt;br&gt;while pump remains ON" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="380" width="460" height="135" />
+        </mxCell>
+        <mxCell id="post" value="&lt;b&gt;Refresh OLED&lt;/b&gt;&lt;br&gt;Now pump is OFF&lt;br&gt;Show latest available readings" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="590" y="610" width="420" height="110" />
+        </mxCell>
+        <mxCell id="publish" value="&lt;b&gt;Format and enqueue&lt;/b&gt;&lt;br&gt;If mqtt_started: formatTelemetry()&lt;br&gt;then mqttQueueTelemetry()&lt;br&gt;Log formatting / enqueue failure" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1120" y="610" width="420" height="110" />
+        </mxCell>
+        <mxCell id="wait" value="&lt;b&gt;Delay 5000 ms&lt;/b&gt;&lt;br&gt;Begin another outer pass" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="610" width="420" height="110" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="mqtt" target="read">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="read" target="pre">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="pre" target="water">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="water" target="on">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e4" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="on" target="fast">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="Pump now OFF" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="fast" target="on">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="290" y="345" />
+              <mxPoint x="800" y="345" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="on" target="post">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e7" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="post" target="publish">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e8" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="publish" target="wait">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1330" y="765" />
+              <mxPoint x="270" y="765" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e9" value="Repeat" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="wait" target="mqtt">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="30" y="665" />
+              <mxPoint x="30" y="255" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="note" value="Fast loop: no new DHT read, OLED redraw, telemetry enqueue or 5-second delay. Details: 04_Watering_Control." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="785" width="1480" height="25" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,firmware-startup">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="03 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

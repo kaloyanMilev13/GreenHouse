@@ -79,7 +79,7 @@ static void networkEventHandler(void *arg, esp_event_base_t event_base, int32_t 
 
 	}else if(event_base == IP_EVENT && event_id == IP_EVENT_STA_LOST_IP){
 
-		xEventGroupClearBitsFromISR(network_events, NETWORK_READY_BIT);
+		xEventGroupClearBits(network_events, NETWORK_READY_BIT);
 	
 	}else if(event_base == WIFI_EVENT && event_id == WIFI_EVENT_STA_DISCONNECTED){
 

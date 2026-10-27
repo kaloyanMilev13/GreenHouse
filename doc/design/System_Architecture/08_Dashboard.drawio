@@ -1,0 +1,227 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="dashboard-overview" name="L0 | Help the caretaker see current condition and history">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DASHBOARD / L0" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Help the caretaker see current condition and history" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Which views are provided by the Grafana dashboard?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  dashboard/greenhouse-overview.json (14 panels; refresh 5s)  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="db" value="&lt;b&gt;PostgreSQL&lt;/b&gt;&lt;br&gt;readings + watering_events" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;shape=cylinder;size=18;boundedLbl=1;backgroundOutline=1;spacingTop=26;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="325" width="340" height="150" />
+        </mxCell>
+        <mxCell id="select" value="&lt;b&gt;Select data mode&lt;/b&gt;&lt;br&gt;Test by default&lt;br&gt;Switch to Real for firmware data" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="560" y="325" width="420" height="150" />
+        </mxCell>
+        <mxCell id="current" value="&lt;b&gt;Current condition&lt;/b&gt;&lt;br&gt;Six sensor / pump cards&lt;br&gt;Reading age + sample details" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1140" y="205" width="400" height="135" />
+        </mxCell>
+        <mxCell id="alerts" value="&lt;b&gt;Current alerts&lt;/b&gt;&lt;br&gt;Six checks with fresh-data gating&lt;br&gt;Warnings appear in a table" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1140" y="415" width="400" height="115" />
+        </mxCell>
+        <mxCell id="history" value="&lt;b&gt;Historical views&lt;/b&gt;&lt;br&gt;Four sensor charts&lt;br&gt;Watering event history table" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1140" y="610" width="400" height="115" />
+        </mxCell>
+        <mxCell id="e0" value="SQL data source" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="db" target="select">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="select" target="current">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1050" y="400" />
+              <mxPoint x="1050" y="272" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="select" target="alerts">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1050" y="400" />
+              <mxPoint x="1050" y="472" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="select" target="history">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="770" y="667" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="meaning" value="&lt;b&gt;Meaning of the display&lt;/b&gt;&lt;br&gt;Light and soil are relative percentages. Reservoir is low / OK, not a volume. Pump status is the firmware command, not measured flow. The dashboard does not send commands." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="675" width="920" height="110" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,dashboard-queries">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dashboard-queries" name="L1 | Choose the right rows for each view">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DASHBOARD / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Choose the right rows for each view" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="How are mode, ordering, timestamps and time range applied?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  dashboard/greenhouse-overview.json: panel rawSql queries  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="selection" value="&lt;b&gt;Shared filter&lt;/b&gt;&lt;br&gt;device_id = 01&lt;br&gt;is_test = (selected mode is Test)" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="210" width="1480" height="90" />
+        </mxCell>
+        <mxCell id="latest" value="&lt;b&gt;Latest cards and details&lt;/b&gt;&lt;br&gt;ORDER BY received_at DESC, id DESC&lt;br&gt;LIMIT 1&lt;br&gt;Independent of dashboard time range" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="420" width="460" height="165" />
+        </mxCell>
+        <mxCell id="trends" value="&lt;b&gt;Sensor history charts&lt;/b&gt;&lt;br&gt;Filter received_at by selected time range&lt;br&gt;ORDER BY received_at, id&lt;br&gt;Use database receipt time on X axis" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="570" y="420" width="460" height="165" />
+        </mxCell>
+        <mxCell id="events" value="&lt;b&gt;Watering history&lt;/b&gt;&lt;br&gt;Filter received_at by selected time range&lt;br&gt;Group display order by boot, then cycle&lt;br&gt;Within cycle: occurred_at_ms, id; limit 500" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="420" width="460" height="165" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="selection" target="latest">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="800" y="355" />
+              <mxPoint x="290" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="selection" target="trends">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="selection" target="events">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="800" y="355" />
+              <mxPoint x="1310" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="fresh" value="&lt;b&gt;Freshness uses receipt time&lt;/b&gt;&lt;br&gt;Reading age = max(0, now() - received_at). A delayed outbox message can be newly received but contain older measurements. There is no per-sensor acquisition timestamp or persisted MQTT status in the dashboard." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="695" width="1480" height="100" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,dashboard-overview">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,dashboard-alerts">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="dashboard-alerts" name="L2 | Current alerts: freshness first, then field checks">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DASHBOARD / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Current alerts: freshness first, then field checks" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="How does the SQL produce the caretaker warning table?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  dashboard/greenhouse-overview.json: Current alerts panel, latest/state CTEs and CASE checks  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="alerts_0_0" value="&lt;b&gt;Check&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="195" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_0_1" value="&lt;b&gt;Fresh-data rule&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="195" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_0_2" value="&lt;b&gt;Otherwise&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="195" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alerts_1_0" value="Incoming data" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="285" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_1_1" value="received_at within 30 seconds -&amp;gt; OK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="285" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_1_2" value="No row -&amp;gt; NO DATA&lt;br&gt;Older receipt -&amp;gt; STALE" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="285" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alerts_2_0" value="Reservoir" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="375" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_2_1" value="null -&amp;gt; FAULT; true -&amp;gt; LOW WATER&lt;br&gt;false -&amp;gt; OK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="375" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_2_2" value="No fresh data -&amp;gt; UNKNOWN" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="375" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alerts_3_0" value="Temperature" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="465" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_3_1" value="null -&amp;gt; FAULT; &amp;lt; 16 C -&amp;gt; LOW&lt;br&gt;&amp;gt; 27 C -&amp;gt; HIGH; else OK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="465" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_3_2" value="No fresh data -&amp;gt; UNKNOWN" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="465" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alerts_4_0" value="Humidity" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="555" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_4_1" value="null -&amp;gt; FAULT; &amp;lt; 40% -&amp;gt; LOW&lt;br&gt;&amp;gt; 60% -&amp;gt; HIGH; else OK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="555" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_4_2" value="No fresh data -&amp;gt; UNKNOWN" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="555" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alerts_5_0" value="Soil sensor / pump status" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="645" width="350" height="90" />
+        </mxCell>
+        <mxCell id="alerts_5_1" value="null -&amp;gt; FAULT; non-null -&amp;gt; OK&lt;br&gt;Pump ON does not itself create an alert" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="410" y="645" width="670" height="90" />
+        </mxCell>
+        <mxCell id="alerts_5_2" value="No fresh data -&amp;gt; UNKNOWN" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="645" width="460" height="90" />
+        </mxCell>
+        <mxCell id="alert-limits" value="&lt;b&gt;Scope of these warnings&lt;/b&gt;&lt;br&gt;SQL status table; no notification rules, light-fault check or soil-dry threshold. The 16-27 C and 40-60% limits are dashboard constants." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="755" width="1480" height="55" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,dashboard-queries">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="03 / 03" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

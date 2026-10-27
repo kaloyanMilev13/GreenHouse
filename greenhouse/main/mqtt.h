@@ -8,4 +8,6 @@ esp_err_t mqttInit(void);
 
 esp_err_t mqttQueueTelemetry(const char *json);
 
+esp_err_t mqttQueueWateringEvent(const char *json);
+
 #endif

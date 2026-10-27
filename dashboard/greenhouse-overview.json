@@ -3,7 +3,7 @@
     {
       "name": "DS_POSTGRES",
       "label": "Greenhouse PostgreSQL",
-      "description": "Select the existing PostgreSQL data source that can SELECT from public.readings.",
+      "description": "Select the existing PostgreSQL data source that can SELECT from public.readings and public.watering_events.",
       "type": "datasource",
       "pluginId": "grafana-postgresql-datasource",
       "pluginName": "PostgreSQL"
@@ -616,6 +616,160 @@
       }
     },
     {
+      "id": 14,
+      "title": "Current alerts \u2014 ${mode}",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_POSTGRES}"
+      },
+      "gridPos": {
+        "x": 0,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "description": "Current dashboard warnings, refreshed every 5 seconds. Provisional houseplant limits: 16\u201327\u00b0C and 40\u201360% humidity (inclusive). Uses the latest reading in the selected Test/Real mode, independently of the dashboard time range. No data or readings older than 30 seconds produce warnings; stale measurements are not evaluated. Immediate checks, without persistence delay or external notifications. Pump status checks reported command availability, not physical operation.",
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "noValue": "Unknown",
+          "custom": {
+            "align": "auto",
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Check"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 200
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Status"
+            },
+            "properties": [
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "FAULT \u2014 humidity sensor": {
+                        "text": "FAULT \u2014 humidity sensor",
+                        "color": "red",
+                        "index": 0
+                      },
+                      "FAULT \u2014 pump status unavailable": {
+                        "text": "FAULT \u2014 pump status unavailable",
+                        "color": "red",
+                        "index": 1
+                      },
+                      "FAULT \u2014 reservoir sensor": {
+                        "text": "FAULT \u2014 reservoir sensor",
+                        "color": "red",
+                        "index": 2
+                      },
+                      "FAULT \u2014 soil sensor": {
+                        "text": "FAULT \u2014 soil sensor",
+                        "color": "red",
+                        "index": 3
+                      },
+                      "FAULT \u2014 temperature sensor": {
+                        "text": "FAULT \u2014 temperature sensor",
+                        "color": "red",
+                        "index": 4
+                      },
+                      "HIGH \u2014 above 27\u00b0C": {
+                        "text": "HIGH \u2014 above 27\u00b0C",
+                        "color": "orange",
+                        "index": 5
+                      },
+                      "HIGH \u2014 above 60%": {
+                        "text": "HIGH \u2014 above 60%",
+                        "color": "orange",
+                        "index": 6
+                      },
+                      "LOW WATER \u2014 refill reservoir": {
+                        "text": "LOW WATER \u2014 refill reservoir",
+                        "color": "red",
+                        "index": 7
+                      },
+                      "LOW \u2014 below 16\u00b0C": {
+                        "text": "LOW \u2014 below 16\u00b0C",
+                        "color": "orange",
+                        "index": 8
+                      },
+                      "LOW \u2014 below 40%": {
+                        "text": "LOW \u2014 below 40%",
+                        "color": "orange",
+                        "index": 9
+                      },
+                      "NO DATA \u2014 no readings received": {
+                        "text": "NO DATA \u2014 no readings received",
+                        "color": "red",
+                        "index": 10
+                      },
+                      "OK": {
+                        "text": "OK",
+                        "color": "green",
+                        "index": 11
+                      },
+                      "STALE \u2014 check device and connection": {
+                        "text": "STALE \u2014 check device and connection",
+                        "color": "red",
+                        "index": 12
+                      },
+                      "UNKNOWN \u2014 no fresh data": {
+                        "text": "UNKNOWN \u2014 no fresh data",
+                        "color": "gray",
+                        "index": 13
+                      }
+                    }
+                  }
+                ]
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_POSTGRES}"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "table",
+          "rawSql": "WITH latest AS (\n    SELECT received_at, temperature_c, humidity_pct, water_low, moisture_pct, pump_on\n    FROM public.readings\n    WHERE device_id = '01' AND is_test = (${mode:sqlstring} = 'Test')\n    ORDER BY received_at DESC, id DESC\n    LIMIT 1\n), state AS (\n    SELECT latest.*, COALESCE(received_at >= now() - interval '30 seconds', false) AS fresh\n    FROM (VALUES (1)) AS seed(n)\n    LEFT JOIN latest ON true\n)\nSELECT checks.name AS \"Check\", checks.status AS \"Status\"\nFROM state\nCROSS JOIN LATERAL (VALUES\n    (1, 'Incoming data', CASE WHEN received_at IS NULL THEN 'NO DATA \u2014 no readings received' WHEN NOT fresh THEN 'STALE \u2014 check device and connection' ELSE 'OK' END),\n    (2, 'Reservoir', CASE WHEN NOT fresh THEN 'UNKNOWN \u2014 no fresh data' WHEN water_low IS NULL THEN 'FAULT \u2014 reservoir sensor' WHEN water_low THEN 'LOW WATER \u2014 refill reservoir' ELSE 'OK' END),\n    (3, 'Temperature', CASE WHEN NOT fresh THEN 'UNKNOWN \u2014 no fresh data' WHEN temperature_c IS NULL THEN 'FAULT \u2014 temperature sensor' WHEN temperature_c < 16 THEN 'LOW \u2014 below 16\u00b0C' WHEN temperature_c > 27 THEN 'HIGH \u2014 above 27\u00b0C' ELSE 'OK' END),\n    (4, 'Humidity', CASE WHEN NOT fresh THEN 'UNKNOWN \u2014 no fresh data' WHEN humidity_pct IS NULL THEN 'FAULT \u2014 humidity sensor' WHEN humidity_pct < 40 THEN 'LOW \u2014 below 40%' WHEN humidity_pct > 60 THEN 'HIGH \u2014 above 60%' ELSE 'OK' END),\n    (5, 'Soil sensor', CASE WHEN NOT fresh THEN 'UNKNOWN \u2014 no fresh data' WHEN moisture_pct IS NULL THEN 'FAULT \u2014 soil sensor' ELSE 'OK' END),\n    (6, 'Pump status', CASE WHEN NOT fresh THEN 'UNKNOWN \u2014 no fresh data' WHEN pump_on IS NULL THEN 'FAULT \u2014 pump status unavailable' ELSE 'OK' END)\n) AS checks(position, name, status)\nORDER BY checks.position;"
+        }
+      ],
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm"
+      }
+    },
+    {
       "id": 9,
       "title": "Temperature history \u2014 ${mode}",
       "type": "timeseries",
@@ -625,7 +779,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 8,
+        "y": 16,
         "w": 12,
         "h": 8
       },
@@ -695,7 +849,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 8,
+        "y": 16,
         "w": 12,
         "h": 8
       },
@@ -767,7 +921,7 @@
       },
       "gridPos": {
         "x": 0,
-        "y": 16,
+        "y": 24,
         "w": 12,
         "h": 8
       },
@@ -839,7 +993,7 @@
       },
       "gridPos": {
         "x": 12,
-        "y": 16,
+        "y": 24,
         "w": 12,
         "h": 8
       },
@@ -900,6 +1054,184 @@
         }
       },
       "description": "Database receipt time is used on the horizontal axis. Relative light and moisture percentages require firmware calibration. Test mode contains synthetic data."
+    },
+    {
+      "id": 13,
+      "title": "Watering history \u2014 ${mode}",
+      "type": "table",
+      "datasource": {
+        "type": "grafana-postgresql-datasource",
+        "uid": "${DS_POSTGRES}"
+      },
+      "gridPos": {
+        "x": 12,
+        "y": 8,
+        "w": 12,
+        "h": 8
+      },
+      "fieldConfig": {
+        "defaults": {
+          "unit": "none",
+          "noValue": "\u2014",
+          "custom": {
+            "align": "left",
+            "cellOptions": {
+              "type": "auto"
+            }
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Received"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "time:MM-DD HH:mm:ss"
+              },
+              {
+                "id": "custom.width",
+                "value": 150
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Action"
+            },
+            "properties": [
+              {
+                "id": "custom.width",
+                "value": 100
+              },
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-background",
+                  "mode": "basic"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "Started": {
+                        "text": "Started",
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "Stopped": {
+                        "text": "Stopped",
+                        "color": "green",
+                        "index": 1
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Duration"
+            },
+            "properties": [
+              {
+                "id": "unit",
+                "value": "suffix: s"
+              },
+              {
+                "id": "decimals",
+                "value": 2
+              },
+              {
+                "id": "custom.width",
+                "value": 90
+              },
+              {
+                "id": "custom.align",
+                "value": "right"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "Reason"
+            },
+            "properties": [
+              {
+                "id": "custom.cellOptions",
+                "value": {
+                  "type": "color-text"
+                }
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "type": "value",
+                    "options": {
+                      "Dry soil": {
+                        "text": "Dry soil",
+                        "color": "blue",
+                        "index": 0
+                      },
+                      "Time limit reached": {
+                        "text": "Time limit reached",
+                        "color": "green",
+                        "index": 1
+                      },
+                      "Soil no longer dry": {
+                        "text": "Soil no longer dry",
+                        "color": "green",
+                        "index": 2
+                      },
+                      "Low reservoir": {
+                        "text": "Low reservoir",
+                        "color": "orange",
+                        "index": 3
+                      },
+                      "Sensor fault": {
+                        "text": "Sensor fault",
+                        "color": "red",
+                        "index": 4
+                      }
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      },
+      "targets": [
+        {
+          "refId": "A",
+          "datasource": {
+            "type": "grafana-postgresql-datasource",
+            "uid": "${DS_POSTGRES}"
+          },
+          "editorMode": "code",
+          "rawQuery": true,
+          "format": "table",
+          "rawSql": "SELECT received_at AS \"Received\", CASE event WHEN 'started' THEN 'Started' WHEN 'stopped' THEN 'Stopped' ELSE event END AS \"Action\", duration_ms / 1000.0 AS \"Duration\", CASE reason WHEN 'dry_soil' THEN 'Dry soil' WHEN 'time_limit' THEN 'Time limit reached' WHEN 'soil_wet' THEN 'Soil no longer dry' WHEN 'low_water' THEN 'Low reservoir' WHEN 'invalid_sensor' THEN 'Sensor fault' ELSE reason END AS \"Reason\" FROM public.watering_events WHERE device_id = '01' AND is_test = (${mode:sqlstring} = 'Test') AND $__timeFilter(received_at) ORDER BY MAX(received_at) OVER (PARTITION BY boot_id) DESC, boot_id, cycle_id DESC, occurred_at_ms ASC, id ASC LIMIT 500;"
+        }
+      ],
+      "options": {
+        "showHeader": true,
+        "cellHeight": "sm",
+        "footer": {
+          "show": false
+        }
+      },
+      "description": "Watering command history for the selected Test/Real mode and receipt-time range. Received is the database receipt time, not the physical event time. Duration is seconds; a dash on start events means not applicable. Latest boots/cycles first, then device event order within each cycle, so receipt times can appear out of order. Boot IDs and uptime are omitted for readability. A stop command does not confirm physical pump operation. Up to 500 events."
     }
   ]
 }

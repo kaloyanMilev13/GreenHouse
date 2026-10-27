@@ -1,0 +1,6 @@
+Backend execution — 26 October 2026
+Source SHA256 303ada35ac584007a3ce21175f48e2ecb69a263b415cc5eaeb9db2280ef75a7e
+PASS: 43 cases including subscriptions, valid/null/boundary payloads, invalid messages, stop reasons and DB error handling.
+PASS: valid payloads reached the parameterized INSERT statements with expected fields.
+LIMIT: database failure logged after one insert attempt; no application retry observed.
+Scope: actual backend code executed with MQTT and database adapters; delivery, commits, duplicate suppression and persistence are not established by this run.

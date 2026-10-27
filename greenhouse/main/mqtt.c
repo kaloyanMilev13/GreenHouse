@@ -186,3 +186,36 @@ esp_err_t mqttQueueTelemetry(const char *json){
 
 	return ESP_OK;
 }
+
+
+esp_err_t mqttQueueWateringEvent(const char *json){
+
+
+	if(json == NULL){
+
+		return ESP_ERR_INVALID_ARG;
+
+	}
+
+	if(mqtt_client == NULL){
+
+		return ESP_ERR_INVALID_STATE;
+
+	}
+
+	int message_id = esp_mqtt_client_enqueue(mqtt_client, "greenhouse/01/watering", json, 0, 1, 0, true);
+
+	if(message_id == -2){
+
+		return ESP_ERR_NO_MEM;
+	}
+
+	if(message_id < 0){
+
+		return ESP_FAIL;
+
+	}
+
+
+	return ESP_OK;
+}

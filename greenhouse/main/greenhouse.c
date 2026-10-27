@@ -21,7 +21,7 @@
 #include "ssd1306.h"
 
 #include "esp_log.h"
-
+#include "esp_random.h"
 #include "esp_timer.h"
 
 
@@ -29,7 +29,7 @@
 #include "network.h"
 #include "mqtt.h"
 
-#define SENSOR_READ_INTERVAL_MS 500
+#define SENSOR_READ_INTERVAL_MS 5000
 
 #define WATERING_DURATION_MS 2000ULL
 
@@ -48,6 +48,9 @@
 #define DHT_GPIO GPIO_NUM_17 
 
 
+#define MOISTURE_SAMPLE_COUNT 32
+
+
 //ADC
 #define LIGHT_ADC_CHANNEL ADC_CHANNEL_6
 #define WATER_LEVEL_ADC_CHANNEL ADC_CHANNEL_7
@@ -56,14 +59,18 @@
 #define ADC_LOWER_BOUND 0
 #define ADC_UPPER_BOUND 4095
 
+#define MOISTURE_DRY_ADC 1883.0f
+#define MOISTURE_WET_ADC 1822.0f
+
 //Lower Bounds
 #define MARK_LIGHT_LOW 0 //tested
 #define MARK_WATER_LOW 1200 //tested
-#define MARK_MOISTURE_DRY 0 
+#define MARK_MOISTURE_DRY 1880 
 
 //Upper Bounds
 #define MARK_LIGHT_HIGH 2400 //tested
 #define MARK_WATER_MAX 1700 //tested
+#define MARK_MOISTURE_WET 1860
 
 
 //PUMP
@@ -100,8 +107,21 @@ typedef struct {
 } LatestReadings;
 
 
-static bool pump_on = false;
 
+typedef struct {
+
+	const char *boot_id;
+	uint32_t cycle_id;
+	bool started;
+	uint64_t occurred_at_ms;
+	uint64_t duration_ms;
+	const char *reason;
+	bool test;
+
+} Watering;
+
+static bool pump_on = false;
+static char watering_boot_id[17];
 
 adc_oneshot_unit_handle_t initSensors(void){
 
@@ -160,7 +180,7 @@ void initPump(){
 	ESP_ERROR_CHECK(gpio_set_level(PUMP_GPIO, PUMP_OFF_LEVEL));
 
 	pump_on = false;
-	
+
 
 }
 
@@ -180,7 +200,7 @@ void setPump(bool on){
 
 
 
-void readSensors(LatestReadings *readings, adc_oneshot_unit_handle_t adc_handle){
+void readSensors(LatestReadings *readings, adc_oneshot_unit_handle_t adc_handle, bool read_air){
 
 	int light_raw;
 	int water_raw;
@@ -188,15 +208,40 @@ void readSensors(LatestReadings *readings, adc_oneshot_unit_handle_t adc_handle)
 	float temp_raw;
 	float hum_raw;
 
-	readings->dht_status = dht_read_float_data(DHT_TYPE_DHT11, DHT_GPIO, &hum_raw, &temp_raw);
+	if(read_air){
+
+		readings->dht_status = dht_read_float_data(DHT_TYPE_DHT11, DHT_GPIO, &hum_raw, &temp_raw);
+
+		if(readings->dht_status == ESP_OK){
+			readings->temperature = temp_raw;
+			readings->humidity = hum_raw;
+		}
+
+
+	}
+
 	readings->light_status = adc_oneshot_read(adc_handle, LIGHT_ADC_CHANNEL, &light_raw);
 	readings->water_status = adc_oneshot_read(adc_handle, WATER_LEVEL_ADC_CHANNEL, &water_raw);
-	readings->moisture_status = adc_oneshot_read(adc_handle, MOISTURE_ADC_CHANNEL, &moist_raw);
+
+	int moisture_sum = 0;
+	readings->moisture_status = ESP_OK;
 
 
-	if(readings->dht_status == ESP_OK){
-		readings->temperature = temp_raw;
-		readings->humidity = hum_raw;
+	for(int i = 0; i < MOISTURE_SAMPLE_COUNT; i++){
+		
+		int sample = 0;
+
+		esp_err_t result = adc_oneshot_read(adc_handle, MOISTURE_ADC_CHANNEL, &sample);
+
+		if(result != ESP_OK){
+
+			readings->moisture_status = result;
+			break;
+
+		}
+
+		moisture_sum += sample;
+
 	}
 
 
@@ -206,6 +251,12 @@ void readSensors(LatestReadings *readings, adc_oneshot_unit_handle_t adc_handle)
 
 	if(readings->water_status == ESP_OK){
 		readings->water = water_raw;
+	}
+
+	if(readings->moisture_status == ESP_OK){
+		
+		moist_raw = (moisture_sum + MOISTURE_SAMPLE_COUNT / 2) / MOISTURE_SAMPLE_COUNT; //Round
+
 	}
 
 	if(readings->moisture_status == ESP_OK){
@@ -242,35 +293,45 @@ void validateReadings(LatestReadings *readings){
 
 		//translate light adc to percentage
 		float percentage = 100.0f * (MARK_LIGHT_HIGH - readings->light) /
-		       	(MARK_LIGHT_HIGH - MARK_LIGHT_LOW);
+			(MARK_LIGHT_HIGH - MARK_LIGHT_LOW);
 
 		readings->light_pct = fminf(100.0f, fmaxf(0.0f, percentage));
 
 	}
 
 	if(readings->water_valid){
-			readings->water_low = readings->water <= MARK_WATER_LOW;
+		readings->water_low = readings->water <= MARK_WATER_LOW;
 	}else{
-			readings->water_low = true;	
+		readings->water_low = true;	
 	}
 
 
 
 	if(readings->moist_valid){
 
-		readings->activate_pump = readings->moist_valid && readings->water_valid && !readings->water_low && readings->moisture <= MARK_MOISTURE_DRY;
+		float percentage = 100.0f * (MOISTURE_DRY_ADC - readings->moisture) / (MOISTURE_DRY_ADC - MOISTURE_WET_ADC);
+
+		readings->moisture_pct = fminf(100.0f, fmaxf(0.0f, percentage));
+
+		
+
+		readings->activate_pump = readings->moist_valid && readings->water_valid && !readings->water_low && readings->moisture >= MARK_MOISTURE_DRY;//Higher readings are drier soil
 
 	}else {
-	
+		readings->moisture_pct = NAN;
 		readings->activate_pump = false;
 	}
 
-	
+
 
 }
 
+static esp_err_t sendWateringEvent(const Watering *event);
+
+
 void updateWatering(LatestReadings *readings, bool *pump_on){
 
+	static uint32_t cycle_id = 0;
 
 	static uint64_t started_at_ms = 0;
 	static uint64_t stopped_at_ms = 0;
@@ -279,19 +340,55 @@ void updateWatering(LatestReadings *readings, bool *pump_on){
 	uint64_t now_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
 
 
-	bool should_water = (readings->moist_valid) && (readings->water_valid) && !(readings->water_low) && (readings->moisture <= MARK_MOISTURE_DRY);
+	bool watering_safe = readings->moist_valid && readings->water_valid && !readings->water_low;
+
+
+	bool should_start = watering_safe && (readings->moisture >= MARK_MOISTURE_DRY);
 
 	if(*pump_on){
-		
+
 		bool time_expired = now_ms - started_at_ms >= WATERING_DURATION_MS;
 
-		if(!should_water || time_expired){ // enought time watering or shouldnt water now
-				
+		bool soil_wet = readings->moisture <= MARK_MOISTURE_WET;
+
+		if(!watering_safe || soil_wet || time_expired){ // enought time watering or shouldnt water now
+
 			setPump(false);
 
-			stopped_at_ms = now_ms;
+			stopped_at_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
 
 			cooling_down = true; 
+
+			const char *reason;
+
+			if(!readings->moist_valid || !readings->water_valid){
+				reason = "invalid_sensor";
+			}else if(readings->water_low){
+				reason = "low_water";
+			}else if(time_expired){
+				reason = "time_limit";
+			}else{
+				reason = "soil_wet";
+			}
+
+			Watering event = {
+				
+				.boot_id = watering_boot_id,
+				.cycle_id = cycle_id,
+				.started = false,
+				.occurred_at_ms = stopped_at_ms,
+				.duration_ms = stopped_at_ms - started_at_ms,
+				.reason = reason,
+				.test = false
+
+			};
+
+			esp_err_t result = sendWateringEvent(&event);
+
+			if(result != ESP_OK){
+				ESP_LOGW("Watering", "Couldnt queue stop event: %s", esp_err_to_name(result));
+			
+			}
 
 			ESP_LOGI("Watering", "Pump stopped, cooldown started");
 
@@ -302,7 +399,7 @@ void updateWatering(LatestReadings *readings, bool *pump_on){
 
 
 	if(cooling_down){
-		
+
 		bool cooldown_finished = now_ms - stopped_at_ms >= WATERING_COOLDOWN_MS;
 
 		if(!cooldown_finished){
@@ -310,20 +407,84 @@ void updateWatering(LatestReadings *readings, bool *pump_on){
 			return;
 
 		}	
-	
+
 
 		cooling_down = false;
 	}
 
-	if(should_water){
-		
+	if(should_start){
+
 		setPump(true);
 
-		started_at_ms = now_ms;
+		started_at_ms = (uint64_t)esp_timer_get_time() / 1000ULL;
+
+		cycle_id++;
+
+		Watering event = {
+			
+			.boot_id = watering_boot_id,
+			.cycle_id = cycle_id,
+			.started = true,
+			.occurred_at_ms = started_at_ms,
+			.duration_ms = 0,
+			.reason = "dry_soil",
+			.test = false,
+		};
+
+		esp_err_t result = sendWateringEvent(&event);
+
+		if(result != ESP_OK){
+			ESP_LOGW("Watering", "Couldnt queue start event: %s", esp_err_to_name(result));
+			
+		}
 
 		ESP_LOGI("Watering", "Pump started");
 
 	}
+
+}
+
+
+static esp_err_t sendWateringEvent(const Watering *event){
+
+	if(event == NULL || event->boot_id == NULL || event->reason == NULL){
+		return ESP_ERR_INVALID_ARG;
+	}
+
+	char payload[384];
+	char duration[32];
+
+	if(event->started){
+		snprintf(duration, sizeof(duration), "null");
+	}else{
+		snprintf(duration, sizeof(duration), "%" PRIu64,event->duration_ms);
+	}
+
+
+	int length = snprintf(payload, sizeof(payload), 
+
+			"{\"device_id\":\"01\","
+			"\"boot_id\":\"%s\","
+			"\"cycle_id\":%" PRIu32 ","
+			"\"event\":\"%s\","
+			"\"occurred_at_ms\":%" PRIu64 ","
+			"\"duration_ms\":%s,"
+			"\"reason\":\"%s\","
+			"\"test\":%s}",
+			event->boot_id,
+			event->cycle_id,
+			event->started ? "started" : "stopped",
+			event->occurred_at_ms,
+			duration,
+			event->reason,
+			event->test ? "true" : "false"
+			);
+
+	if(length < 0 || (size_t)length >= sizeof(payload)){
+		return ESP_ERR_INVALID_SIZE;
+	}
+
+	return mqttQueueWateringEvent(payload);
 
 }
 
@@ -419,90 +580,240 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 	}
 
 
-	if(readings->water_valid){
-		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: %d", readings->water);
+	if(!readings->water_valid){
+		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: ERROR");
 		ssd1306_display_text(oled, 3, readingsBuffer, strlen(readingsBuffer), false);
 	}else {
-
-		ssd1306_display_text(oled, 3, "Water: ERROR", strlen("Water: ERROR"), false);
+		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: %s", readings->water_low ? "LOW" : "OK");
+		ssd1306_display_text(oled, 3, readingsBuffer, strlen(readingsBuffer), false);
 	}
 
-	if(readings->moist_valid){
-		snprintf(readingsBuffer, sizeof(readingsBuffer), "Soil: %d", readings->moisture);
-		ssd1306_display_text(oled, 4, readingsBuffer, strlen(readingsBuffer), false);
-	}else{
+	
+	const char* soil_status;
 
-		ssd1306_display_text(oled, 4, "Soil: ERROR", strlen("Soil: ERROR"), false);
+	if(!readings->moist_valid){
+		soil_status = "ERROR";
+	}else if (readings->moisture >= MARK_MOISTURE_DRY){
+		soil_status = "DRY";
+	}else if (readings->moisture <= MOISTURE_WET_ADC){
+		soil_status = "WET";	
+	}else {
+		soil_status = "OK";
 	}
+
+
+	snprintf(readingsBuffer, sizeof(readingsBuffer), "Soil: %s", soil_status);
+	ssd1306_display_text(oled, 4, readingsBuffer, strlen(readingsBuffer), false);
+
+
+	snprintf(readingsBuffer, sizeof(readingsBuffer), "Pump: %s", pump_on ? "ON" : "OFF");
+	ssd1306_display_text(oled, 5, readingsBuffer, strlen(readingsBuffer), false);
+
+
+	const char *status;
+	const char *action;
+
+	if (!readings->water_valid || !readings->moist_valid) {
+		status = "SENSOR FAULT";
+		action = "CHECK WATER/SOIL";
+	} else if (readings->water_low) {
+		status = "LOW WATER";
+		action = "REFILL RESERVOIR";
+	} else if (!readings->air_valid || !readings->light_valid) {
+		status = "SENSOR FAULT";
+		action = "CHECK AIR/LIGHT";
+	} else if (pump_on) {
+		status = "WATERING";
+		action = "";
+	} else {
+		status = "MONITORING";
+		action = "";
+	}
+
+	ssd1306_display_text(oled, 6, status, strlen(status), false);
+
+	ssd1306_display_text(oled, 7, action, strlen(action), false);
 
 }
 
-void app_main(void){
+/*
+void app_main(void)
+{
+    // Keep the pump OFF throughout calibration.
+    initPump();
 
+    adc_oneshot_unit_handle_t adc_handle = initSensors();
+
+    printf("\nSoil moisture calibration — pump OFF\n");
+    printf("Record readings in dry soil and watered, drained soil.\n\n");
+
+    while (1) {
+        int sum = 0;
+        int minimum = 4095;
+        int maximum = 0;
+        int successful_reads = 0;
+
+        // Average several samples to reduce noise.
+        for (int i = 0; i < 32; i++) {
+            int raw = 0;
+            esp_err_t result = adc_oneshot_read(
+                adc_handle,
+                MOISTURE_ADC_CHANNEL,
+                &raw
+            );
+
+            if (result == ESP_OK) {
+                sum += raw;
+
+                if (raw < minimum) minimum = raw;
+                if (raw > maximum) maximum = raw;
+
+                successful_reads++;
+            } else {
+                printf("ADC read failed: %s\n",
+                       esp_err_to_name(result));
+            }
+
+            vTaskDelay(pdMS_TO_TICKS(20));
+        }
+
+        if (successful_reads > 0) {
+            float average = (float)sum / successful_reads;
+
+            printf(
+                "Soil ADC | average: %.1f | min: %d | max: %d"
+                " | valid samples: %d/32\n",
+                average,
+                minimum,
+                maximum,
+                successful_reads
+            );
+        } else {
+            printf("ERROR: no successful soil readings\n");
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(500));
+    }
+}
+
+*/
+
+
+void app_main(void)
+{
+	//initialize the pump
 	initPump();
 
+	//init sensors
 	adc_oneshot_unit_handle_t adc_handle = initSensors();
 
+	//init the oled
+	SSD1306_t oled = {0};
+	initOLED(&oled);
+
+	//init the struct for readings data
 	LatestReadings readings = {
 		.water_low = true,
-		.activate_pump = false,
+		.activate_pump = false
 	};
 
+	//flag checking if mqtt is successful
 	bool mqtt_started = false;
 
+	//init network
 	ESP_ERROR_CHECK(networkInit());
-	
-	ESP_LOGI("greenhouse_WiFi", "WiFi initialization started!");
+	ESP_LOGI("greenhouse", "Local monitoring started");
 
-	while(1){
+	//create 2 random digits
+	uint32_t random_parts[2];
+	esp_fill_random(random_parts, sizeof(random_parts));
+	snprintf(watering_boot_id, sizeof(watering_boot_id), "%08" PRIx32 "%08" PRIx32, random_parts[0], random_parts[1]);
 
-		readSensors(&readings, adc_handle);
+	while (1) {
 
-		validateReadings(&readings);
-
-		updateWatering(&readings, &pump_on);
-
-		if(!mqtt_started && networkWaitReady(0)){
-
+		//start mqtt client
+		if(!mqtt_started) {
 			esp_err_t result = mqttInit();
 
 			if(result == ESP_OK){
 				mqtt_started = true;
-				ESP_LOGI("greenhouse_MQTT", "MQTT client started");
+				ESP_LOGI("greenhouse", "MQTT client started");
 			}else{
-
-				ESP_LOGW("greenhouse_MQTT", "MQTT initialization failed: %s", esp_err_to_name(result));
+				ESP_LOGW("greenhouse","MQTT initialization failed: %s",esp_err_to_name(result));
 			}
 		}
 
 
-		char payload[512];
+		//independant local monitoring
+		readSensors(&readings, adc_handle, true);
+		validateReadings(&readings);
+		
+		//display stats on the local oled
+		displayResults(&oled, &readings);
 
-		if(!formatTelemetry(&readings, payload, sizeof(payload))){
-			ESP_LOGE("greenhouse_TELEMETRY", "Payload formatting failed");
-		}else{
-			
-			ESP_LOGI("greenhouse_TELEMETRY", "%s", payload);
+
+		//display the pump checking
+		if(readings.activate_pump){
+			ssd1306_display_text(&oled, 5, "Pump: checking  ", 16, false);
+		}
 
 
-			if(mqtt_started){
+		//check if should wter
+		updateWatering(&readings, &pump_on);
+		
+		if(pump_on){
+			//show if the pump is on
+			displayResults(&oled, &readings);
+		}
+				
+		//while watering
+		while(pump_on){
 
+			//check if it shpuld stop (time expired)
+			updateWatering(&readings, &pump_on);
+
+			//stop
+			if(!pump_on)
+				break;
+
+
+			//check only moisture, water level, without another DHT request
+			readSensors(&readings, adc_handle, false);
+			validateReadings(&readings);
+
+			//check again but because of moisture and water level
+			updateWatering(&readings, &pump_on);
+
+
+			//pump water
+			if(pump_on)
+				vTaskDelay(pdMS_TO_TICKS(50));
+
+
+		}
+
+		//display results on the oled again, this time with pump off and new measurements
+		displayResults(&oled, &readings);
+
+
+
+		//if mqtt is successful, try to publish the data
+		if(mqtt_started) {
+			char payload[512];
+
+			if(!formatTelemetry(&readings, payload, sizeof(payload))) {
+				ESP_LOGE("greenhouse", "Telemetry formatting failed");
+			}else{
 				esp_err_t result = mqttQueueTelemetry(payload);
 
 				if(result != ESP_OK){
-					
-					ESP_LOGW("greenhouse_MQTT_TELEMETRY", "Couldn't queue telemetry: %s", esp_err_to_name(result));
-
+					ESP_LOGW("greenhouse", "Telemetry queue failed: %s", esp_err_to_name(result));
 				}
 			}
 		}
 
-
-		vTaskDelay(SENSOR_READ_INTERVAL_MS);
-
+		//this long wait between sensor readings is reache only when the pump is off so that it doesnt interfere with the watering time. 
+		vTaskDelay(pdMS_TO_TICKS(SENSOR_READ_INTERVAL_MS));
 	}
-
 }
-
-
 

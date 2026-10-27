@@ -1,0 +1,280 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="data-concepts" name="L0 | Store measurements and watering activity separately">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DATA AND DATABASE / L0" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Store measurements and watering activity separately" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="What information is related, and which relationships are only conceptual?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  backend/index.js; read-only PostgreSQL schema inspection, 23 October 2026  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="device" value="&lt;b&gt;Device 01&lt;/b&gt;&lt;br&gt;Conceptual identity&lt;br&gt;No devices table exists" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="570" y="205" width="460" height="110" />
+        </mxCell>
+        <mxCell id="reading" value="&lt;b&gt;Readings&lt;/b&gt;&lt;br&gt;One row per accepted telemetry message&lt;br&gt;Snapshot of measured conditions" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;shape=cylinder;size=18;boundedLbl=1;backgroundOutline=1;spacingTop=26;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="430" width="620" height="150" />
+        </mxCell>
+        <mxCell id="events" value="&lt;b&gt;Watering events&lt;/b&gt;&lt;br&gt;One row per accepted start / stop kind&lt;br&gt;Identified by boot and cycle" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;shape=cylinder;size=18;boundedLbl=1;backgroundOutline=1;spacingTop=26;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="920" y="430" width="620" height="150" />
+        </mxCell>
+        <mxCell id="e0" value="1 device : many readings" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="device" target="reading">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="370" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e1" value="1 device : many events" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="device" target="events">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1230" y="260" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="Same device_id&lt;br&gt;No foreign key" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=none;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;" edge="1" parent="1" source="reading" target="events">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="relationship" value="&lt;b&gt;Relations that are actually available&lt;/b&gt;&lt;br&gt;Within watering_events, (device_id, boot_id, cycle_id) groups a cycle. Adding event makes the row unique.&lt;br&gt;Readings have no boot_id or cycle_id, so a reading cannot be joined reliably to a watering cycle using uptime alone." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="680" width="1480" height="115" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,database-schema">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="database-schema" name="L1 | The current PostgreSQL schema">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DATA AND DATABASE / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="The current PostgreSQL schema" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Physical tables, keys and nullability verified against the local database." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  information_schema.columns; pg_constraint; pg_indexes (read-only); backend INSERTs  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="readings" value="&lt;b&gt;public.readings&lt;/b&gt;&lt;br&gt;PK  id: bigint, NOT NULL&lt;br&gt;device_id: text, NOT NULL&lt;br&gt;received_at: timestamptz, NOT NULL, default now()&lt;br&gt;is_test: boolean, NOT NULL, default false&lt;br&gt;sampled_at_ms: bigint, nullable&lt;br&gt;temperature_c, humidity_pct: float8, nullable&lt;br&gt;light_pct, moisture_pct: float8, nullable&lt;br&gt;water_low, pump_on: boolean, nullable&lt;br&gt;light_raw, water_raw, moisture_raw: int, nullable" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="195" width="700" height="390" />
+        </mxCell>
+        <mxCell id="events" value="&lt;b&gt;public.watering_events&lt;/b&gt;&lt;br&gt;PK  id: bigint, NOT NULL, sequence default&lt;br&gt;device_id, boot_id: text, NOT NULL&lt;br&gt;cycle_id: bigint, NOT NULL&lt;br&gt;event, reason: text, NOT NULL&lt;br&gt;occurred_at_ms: bigint, NOT NULL&lt;br&gt;duration_ms: bigint, nullable&lt;br&gt;received_at: timestamptz, NOT NULL, default now()&lt;br&gt;is_test: boolean, NOT NULL&lt;br&gt;UNIQUE (device_id, boot_id, cycle_id, event)" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="840" y="195" width="700" height="390" />
+        </mxCell>
+        <mxCell id="rkeys" value="&lt;b&gt;Reading checks and index&lt;/b&gt;&lt;br&gt;Percent fields 0..100; raw fields 0..4095; sampled_at_ms &amp;gt;= 0.&lt;br&gt;Index: (device_id, received_at DESC).&lt;br&gt;Current backend does not insert any *_raw column." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="620" width="700" height="160" />
+        </mxCell>
+        <mxCell id="ekeys" value="&lt;b&gt;Event checks&lt;/b&gt;&lt;br&gt;cycle_id &amp;gt; 0; occurred_at_ms &amp;gt;= 0; event in {started, stopped}.&lt;br&gt;Start: null duration + dry_soil. Stop: nonnegative duration +&lt;br&gt;allowed reason. No foreign keys or enforced start/stop pair." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="840" y="620" width="700" height="160" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,data-concepts">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,backend-ingest">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="backend-ingest" name="L2 | Node.js: receive, validate and insert">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DATA AND DATABASE / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Node.js: receive, validate and insert" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="How does the backend route a message, and where do failures go?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  backend/index.js: client.on(message), saveReading(), saveWateringEvent()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="message" value="&lt;b&gt;MQTT message&lt;/b&gt;&lt;br&gt;Topic + UTF-8 payload" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="210" width="350" height="80" />
+        </mxCell>
+        <mxCell id="known" value="&lt;b&gt;Known topic?&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=rhombus;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="195" width="300" height="110" />
+        </mxCell>
+        <mxCell id="parse" value="&lt;b&gt;Parse JSON object&lt;/b&gt;&lt;br&gt;JSON.parse(); reject null, arrays&lt;br&gt;and non-object values" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="195" width="510" height="110" />
+        </mxCell>
+        <mxCell id="route" value="&lt;b&gt;Telemetry or watering?&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=rhombus;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1100" y="385" width="370" height="125" />
+        </mxCell>
+        <mxCell id="reading" value="&lt;b&gt;saveReading()&lt;/b&gt;&lt;br&gt;Validate telemetry fields&lt;br&gt;INSERT readings; RETURNING id" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="400" width="440" height="120" />
+        </mxCell>
+        <mxCell id="event" value="&lt;b&gt;saveWateringEvent()&lt;/b&gt;&lt;br&gt;Validate event fields&lt;br&gt;INSERT ... ON CONFLICT DO NOTHING" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F0ECF8;strokeColor=#7E6BA0;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="570" y="630" width="490" height="120" />
+        </mxCell>
+        <mxCell id="ignore" value="&lt;b&gt;Ignore topic&lt;/b&gt;&lt;br&gt;Return" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="640" width="350" height="90" />
+        </mxCell>
+        <mxCell id="errors" value="&lt;b&gt;Any parse / validation / SQL error&lt;/b&gt;&lt;br&gt;Catch and log &amp;quot;Rejected message&amp;quot;.&lt;br&gt;No database retry or durable failed-message queue." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1140" y="620" width="400" height="150" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="message" target="known">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="known" target="parse">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="known" target="ignore">
+          <mxGeometry as="geometry" relative="1" x="-0.55">
+            <Array as="points">
+              <mxPoint x="700" y="345" />
+              <mxPoint x="30" y="345" />
+              <mxPoint x="30" y="685" />
+            </Array>
+            <mxPoint as="offset" x="0" y="-12" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="parse" target="route">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e4" value="Telemetry" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="route" target="reading">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="Watering" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="route" target="event">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1285" y="555" />
+              <mxPoint x="815" y="555" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="setup" value="Startup: pg Pool (max 2, acquire timeout 5 s); connect MQTT; subscribe to two topics at QoS 1; checkDatabase() logs SELECT 1 result." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="780" width="1480" height="27" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,database-schema">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,backend-validation">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="03 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="backend-validation" name="L2 | Validate payloads before parameterized SQL">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / DATA AND DATABASE / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Validate payloads before parameterized SQL" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Which rules are checked by JavaScript beyond the table constraints?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  backend/index.js: measurement(), booleanValue(), saveReading(), saveWateringEvent()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="validation_0_0" value="&lt;b&gt;Payload&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="190" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_0_1" value="&lt;b&gt;Required checks&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="190" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_0_2" value="&lt;b&gt;Database mapping&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="190" width="510" height="94" />
+        </mxCell>
+        <mxCell id="validation_1_0" value="Telemetry identity / time" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="284" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_1_1" value="sampled_at_ms: safe integer &amp;gt;= 0&lt;br&gt;test: boolean" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="284" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_1_2" value="device_id hardcoded to 01&lt;br&gt;test -&amp;gt; is_test" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="284" width="510" height="94" />
+        </mxCell>
+        <mxCell id="validation_2_0" value="Telemetry measurements" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="378" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_2_1" value="number or null; finite; temperature -100..150&lt;br&gt;humidity, light and moisture: 0..100" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="378" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_2_2" value="Invalid sensor values can be NULL&lt;br&gt;water_low / pump_on: boolean or null" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="378" width="510" height="94" />
+        </mxCell>
+        <mxCell id="validation_3_0" value="Event identity / time" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="472" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_3_1" value="device_id exactly 01; boot_id 16 lower hex&lt;br&gt;cycle_id &amp;gt; 0; occurred_at_ms &amp;gt;= 0; safe integers" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="472" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_3_2" value="device_id + boot_id + cycle_id&lt;br&gt;identify a cycle" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="472" width="510" height="94" />
+        </mxCell>
+        <mxCell id="validation_4_0" value="Started event" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="566" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_4_1" value="duration_ms exactly null&lt;br&gt;reason exactly dry_soil; test boolean" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="566" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_4_2" value="event = started&lt;br&gt;Duplicate event key is ignored" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="566" width="510" height="94" />
+        </mxCell>
+        <mxCell id="validation_5_0" value="Stopped event" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="660" width="300" height="94" />
+        </mxCell>
+        <mxCell id="validation_5_1" value="duration integer: 0 &amp;lt;= duration &amp;lt;= occurred_at&lt;br&gt;reason: time_limit / soil_wet / low_water / invalid_sensor" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="360" y="660" width="670" height="94" />
+        </mxCell>
+        <mxCell id="validation_5_2" value="event = stopped&lt;br&gt;Duplicate event key is ignored" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="660" width="510" height="94" />
+        </mxCell>
+        <mxCell id="dedup" value="&lt;b&gt;Two different delivery properties&lt;/b&gt;&lt;br&gt;Watering events are deduplicated by a unique key. Telemetry has no message identity or matching deduplication key, so a QoS 1 redelivery can create another readings row." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="770" width="1480" height="45" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,backend-ingest">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="04 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

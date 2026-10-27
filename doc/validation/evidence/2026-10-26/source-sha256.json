@@ -1,0 +1,19 @@
+{
+  "greenhouse/main/greenhouse.c": "275957e20d8e52d3284692c17963c80fbcd54c4624ab7239e1aec3c40ba62584",
+  "greenhouse/main/mqtt.c": "b4d95f951a9fb32e518bbe4a88c992ccab63254e31364379141d705dc5237fdf",
+  "greenhouse/main/network.c": "f2890948460f53bfbcdb561b8774a1dda835c550e7a7a996e1162f2650c8c696",
+  "backend/index.js": "303ada35ac584007a3ce21175f48e2ecb69a263b415cc5eaeb9db2280ef75a7e",
+  "dashboard/greenhouse-overview.json": "57f744c3b803f680a79612b8c4871ce657fee6159660248128108e15efa40b14",
+  "doc/analysis/Greenhouse_Analysis_and_Advice_Revised.odt": "27284e26d8c53e34829fafba67c048106e000add4b124cbae1b355512e61a41e",
+  "doc/design/Greenhouse_Hardware/Wiring_Table.md": "53b67fa2607bb26708f290087011660f61d4fac5212a5e320d757cbd22218920",
+  "doc/design/System_Architecture/REVIEW_NOTES.md": "6b91e35f00f8e41e522d28811b7f05fe0d906c136b60bfa48deebadd5d955785",
+  "doc/design/System_Architecture/04_Watering_Control.drawio": "c5ae83a65c8e83d699305c8717a060fc28b7f576ba3fb386303761dfe27def56",
+  "doc/design/System_Architecture/06_Data_and_Database.drawio": "6c66cae870354b60aa456dc8f2717f7def68728d675dd08c31b41458d53aa89a",
+  "doc/design/System_Architecture/08_Dashboard.drawio": "cd076c93ff143a63e753f15c4f1c9dccc0825e5fc4648881006112c231fa7598",
+  "doc/design/System_Architecture/03_Sensors_and_Display.drawio": "4e18eb65d18b0e79d218bb1bf9a1f0bc249f6dbc0f7cf31b07141849a131f259",
+  "doc/design/System_Architecture/02_Firmware_Flow.drawio": "783aed46d803388a5f71d690adc2481da06fb94773e337745ea7064823e85d10",
+  "doc/design/System_Architecture/07_Files_and_Modules.drawio": "a55f35003c4c4c063a4d9e5b988d43b2ac466ea5cf6b644ef93c95378907a831",
+  "doc/design/System_Architecture/00_Design_Map.drawio": "1b88c644ef84cfb4c9816a20ffeacab9476c9e4dc76ddacb68ccae226d292dcb",
+  "doc/design/System_Architecture/05_Connectivity.drawio": "6f0e7a6bdffa219b467a19176d5630687128249a2728341173c2d0c4f5fcb189",
+  "doc/design/System_Architecture/01_System_Architecture.drawio": "d1d2095c7c5ed396149ef12370fee9253abe9fafbb2d7f494ca670852b7e6490"
+}

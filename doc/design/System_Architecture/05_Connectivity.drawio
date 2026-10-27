@@ -1,0 +1,331 @@
+<?xml version='1.0' encoding='utf-8'?>
+<mxfile host="app.diagrams.net" type="device" version="24.7.17">
+  <diagram id="connectivity-overview" name="L0 | Reporting runs alongside local control">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / CONNECTIVITY / L0" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Reporting runs alongside local control" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="Which channels exist, and how are they delivered?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  mqtt.c; network.c; backend/index.js; mqtt-test.sh  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="local" value="&lt;b&gt;Local task&lt;/b&gt;&lt;br&gt;Enqueue telemetry and events&lt;br&gt;Continue sensor and pump control" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="230" width="400" height="125" />
+        </mxCell>
+        <mxCell id="queue" value="&lt;b&gt;ESP-MQTT client&lt;/b&gt;&lt;br&gt;Background connection / delivery&lt;br&gt;Shared RAM outbox: 4096 bytes" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="600" y="230" width="440" height="125" />
+        </mxCell>
+        <mxCell id="broker" value="&lt;b&gt;MQTT broker&lt;/b&gt;&lt;br&gt;mqtt://10.42.0.1:1883" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1180" y="230" width="360" height="125" />
+        </mxCell>
+        <mxCell id="e0" value="Enqueue" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="local" target="queue">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="Wi-Fi / TCP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="queue" target="broker">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="topics_0_0" value="&lt;b&gt;Topic suffix under greenhouse/01/&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="425" width="490" height="79" />
+        </mxCell>
+        <mxCell id="topics_0_1" value="&lt;b&gt;Payload / trigger&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="425" width="520" height="79" />
+        </mxCell>
+        <mxCell id="topics_0_2" value="&lt;b&gt;Delivery / consumer&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1070" y="425" width="470" height="79" />
+        </mxCell>
+        <mxCell id="topics_1_0" value="telemetry" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="504" width="490" height="79" />
+        </mxCell>
+        <mxCell id="topics_1_1" value="JSON after an outer pass&lt;br&gt;Invalid measurements become null" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="504" width="520" height="79" />
+        </mxCell>
+        <mxCell id="topics_1_2" value="QoS 1; not retained&lt;br&gt;Node.js -&amp;gt; readings" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1070" y="504" width="470" height="79" />
+        </mxCell>
+        <mxCell id="topics_2_0" value="watering" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="583" width="490" height="79" />
+        </mxCell>
+        <mxCell id="topics_2_1" value="JSON on pump start and stop" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="583" width="520" height="79" />
+        </mxCell>
+        <mxCell id="topics_2_2" value="QoS 1; not retained&lt;br&gt;Node.js -&amp;gt; watering_events" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1070" y="583" width="470" height="79" />
+        </mxCell>
+        <mxCell id="topics_3_0" value="status" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="662" width="490" height="79" />
+        </mxCell>
+        <mxCell id="topics_3_1" value="online on MQTT connect&lt;br&gt;offline is the last will" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="662" width="520" height="79" />
+        </mxCell>
+        <mxCell id="topics_3_2" value="QoS 1; retained&lt;br&gt;Not consumed by current backend" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1070" y="662" width="470" height="79" />
+        </mxCell>
+        <mxCell id="outage" value="&lt;b&gt;Connection failure after setup&lt;/b&gt;&lt;br&gt;Wi-Fi retries asynchronously. The app does not call networkWaitReady(). mqttInit() starts without waiting for an IP. Outbox capacity is finite and queue failures are only logged." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="755" width="1480" height="55" />
+        </mxCell>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,wifi-states">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="01 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="wifi-states" name="L1 | Wi-Fi uses events and a one-shot retry timer">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / CONNECTIVITY / L1" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Wi-Fi uses events and a one-shot retry timer" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="How does network.c react to connection changes?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  network.c: networkInit(), networkEventHandler(), retryConnection(), scheduleRetry()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="init" value="&lt;b&gt;networkInit()&lt;/b&gt;&lt;br&gt;NVS -&amp;gt; netif -&amp;gt; event loop&lt;br&gt;Station -&amp;gt; Wi-Fi -&amp;gt; timer -&amp;gt; handlers&lt;br&gt;Start Wi-Fi; return ESP_OK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="205" width="470" height="125" />
+        </mxCell>
+        <mxCell id="connect" value="&lt;b&gt;Connection requested&lt;/b&gt;&lt;br&gt;STA_START calls retryConnection()&lt;br&gt;esp_wifi_connect()" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=1;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="690" y="205" width="480" height="125" />
+        </mxCell>
+        <mxCell id="ready" value="&lt;b&gt;IP READY&lt;/b&gt;&lt;br&gt;GOT_IP: stop retry timer&lt;br&gt;Set NETWORK_READY_BIT" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1040" y="495" width="500" height="130" />
+        </mxCell>
+        <mxCell id="retry" value="&lt;b&gt;RETRY WAIT&lt;/b&gt;&lt;br&gt;DISCONNECTED: clear ready bit&lt;br&gt;Schedule one-shot timer: 3 seconds" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=1;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="495" width="510" height="130" />
+        </mxCell>
+        <mxCell id="lost" value="&lt;b&gt;IP lost&lt;/b&gt;&lt;br&gt;LOST_IP clears ready bit only" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="660" y="700" width="880" height="70" />
+        </mxCell>
+        <mxCell id="e0" value="STA_START" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="init" target="connect">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="GOT_IP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="connect" target="ready">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="1290" y="267" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" value="Request error or DISCONNECTED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="connect" target="retry">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="930" y="405" />
+              <mxPoint x="315" y="405" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="Timer fires: retryConnection()" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;" edge="1" parent="1" source="retry" target="connect">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="315" y="365" />
+              <mxPoint x="800" y="365" />
+            </Array>
+            <mxPoint as="offset" x="0" y="-15" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" value="DISCONNECTED" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="ready" target="retry">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="LOST_IP" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="ready" target="lost">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="retry-note" value="scheduleRetry() ignores an already-running timer. Other timer failures are logged. networkWaitReady() is exposed but unused by this app." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=17;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="785" width="1480" height="25" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,connectivity-overview">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,mqtt-start">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="02 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="mqtt-start" name="L2 | mqttInit(): create and start the background client">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / CONNECTIVITY / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="mqttInit(): create and start the background client" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="A successful start is not proof of broker connectivity." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  mqtt.c: mqttInit(); greenhouse.c: mqtt_started flag  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="enter" value="&lt;b&gt;mqttInit() called&lt;/b&gt;&lt;br&gt;At loop start while flag is false" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="205" width="350" height="85" />
+        </mxCell>
+        <mxCell id="exists" value="&lt;b&gt;Client exists?&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;shape=rhombus;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="195" width="300" height="110" />
+        </mxCell>
+        <mxCell id="create" value="&lt;b&gt;Create client&lt;/b&gt;&lt;br&gt;Broker URI, keepalive 20 s&lt;br&gt;Last will offline (QoS 1, retained)&lt;br&gt;Outbox limit 4096 bytes" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="190" width="510" height="130" />
+        </mxCell>
+        <mxCell id="register" value="&lt;b&gt;Register event handler&lt;/b&gt;&lt;br&gt;esp_mqtt_client_register_event()" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1030" y="405" width="510" height="85" />
+        </mxCell>
+        <mxCell id="start" value="&lt;b&gt;Start MQTT client&lt;/b&gt;&lt;br&gt;esp_mqtt_client_start()" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="405" width="350" height="85" />
+        </mxCell>
+        <mxCell id="ok" value="&lt;b&gt;Return ESP_OK&lt;/b&gt;&lt;br&gt;App sets mqtt_started = true&lt;br&gt;Connection is asynchronous" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="395" width="350" height="110" />
+        </mxCell>
+        <mxCell id="invalid" value="&lt;b&gt;Return INVALID_STATE&lt;/b&gt;&lt;br&gt;Existing client is left in place" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="650" width="350" height="90" />
+        </mxCell>
+        <mxCell id="fail" value="&lt;b&gt;Failure paths&lt;/b&gt;&lt;br&gt;Create returns NULL: return ESP_FAIL.&lt;br&gt;Register/start fails: destroy client, set handle NULL, return error.&lt;br&gt;App logs failure and tries again on its next outer pass." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="550" y="625" width="990" height="150" />
+        </mxCell>
+        <mxCell id="e0" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="enter" target="exists">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="No" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="exists" target="create">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e2" value="Yes" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="exists" target="invalid">
+          <mxGeometry as="geometry" relative="1" x="0">
+            <Array as="points">
+              <mxPoint x="465" y="340" />
+              <mxPoint x="465" y="695" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e3" value="Created" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="create" target="register">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e4" value="OK" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="register" target="start">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e5" value="OK" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="start" target="ok">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,wifi-states">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <UserObject id="next" label="Explore next page  &amp;gt;" link="data:page/id,mqtt-queue">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=right;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="1290" y="824" width="250" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="03 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+  <diagram id="mqtt-queue" name="L2 | Enqueue quickly; observe delivery through events">
+    <mxGraphModel dx="1600" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="900" math="0" shadow="0" background="#FFFFFF">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="eyebrow" value="GREENHOUSE / CONNECTIVITY / L2" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="26" width="1470" height="24" />
+        </mxCell>
+        <mxCell id="title" value="Enqueue quickly; observe delivery through events" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=36;fontColor=#18362A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="64" width="1480" height="53" />
+        </mxCell>
+        <mxCell id="question" value="What do the queue APIs return, and how are connection events handled?" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#52636C;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="122" width="1480" height="32" />
+        </mxCell>
+        <mxCell id="source" value="SOURCE  mqtt.c: mqttQueueTelemetry(), mqttQueueWateringEvent(), mqttEventHandler()  |  Current code: 23 October 2026" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=13;fontColor=#71818A;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="864" width="1480" height="22" />
+        </mxCell>
+        <mxCell id="qtitle" value="QUEUE CALL FROM LOCAL TASK" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="185" width="690" height="30" />
+        </mxCell>
+        <mxCell id="etitle" value="BACKGROUND MQTT EVENTS" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#416D98;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="185" width="690" height="30" />
+        </mxCell>
+        <mxCell id="args" value="&lt;b&gt;Check arguments&lt;/b&gt;&lt;br&gt;NULL JSON -&amp;gt; INVALID_ARG&lt;br&gt;NULL client -&amp;gt; INVALID_STATE" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=22;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="245" width="640" height="110" />
+        </mxCell>
+        <mxCell id="enqueue" value="&lt;b&gt;esp_mqtt_client_enqueue()&lt;/b&gt;&lt;br&gt;Topic + JSON; QoS 1; retain = 0; store = true" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#EAF1FA;strokeColor=#416D98;shape=process;size=0.04;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="420" width="640" height="100" />
+        </mxCell>
+        <mxCell id="return" value="&lt;b&gt;Translate result&lt;/b&gt;&lt;br&gt;-2 -&amp;gt; NO_MEM; other negative -&amp;gt; FAIL&lt;br&gt;Nonnegative -&amp;gt; ESP_OK (accepted to queue)" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=21;fontColor=#233B43;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=1;arcSize=50;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="600" width="640" height="115" />
+        </mxCell>
+        <mxCell id="e0" value="Valid" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="args" target="enqueue">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="e1" value="" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=20;html=1;fontFamily=Helvetica;fontSize=18;fontColor=#354D57;labelBackgroundColor=#FFFFFF;strokeColor=#60727A;strokeWidth=1.8;endArrow=block;endFill=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="enqueue" target="return">
+          <mxGeometry as="geometry" relative="1" x="0" />
+        </mxCell>
+        <mxCell id="events_0_0" value="&lt;b&gt;Event&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="245" width="230" height="91" />
+        </mxCell>
+        <mxCell id="events_0_1" value="&lt;b&gt;Action&lt;/b&gt;" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="245" width="460" height="91" />
+        </mxCell>
+        <mxCell id="events_1_0" value="CONNECTED" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="336" width="230" height="91" />
+        </mxCell>
+        <mxCell id="events_1_1" value="Publish retained online&lt;br&gt;Log submission ID / failure" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="336" width="460" height="91" />
+        </mxCell>
+        <mxCell id="events_2_0" value="DISCONNECTED" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="427" width="230" height="91" />
+        </mxCell>
+        <mxCell id="events_2_1" value="Log disconnection" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="427" width="460" height="91" />
+        </mxCell>
+        <mxCell id="events_3_0" value="PUBLISHED" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="518" width="230" height="91" />
+        </mxCell>
+        <mxCell id="events_3_1" value="Log broker acknowledgement ID" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFFFFF;strokeColor=#9CA9AF;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="518" width="460" height="91" />
+        </mxCell>
+        <mxCell id="events_4_0" value="ERROR" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="850" y="609" width="230" height="91" />
+        </mxCell>
+        <mxCell id="events_4_1" value="Log MQTT error" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=20;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#F3F5F6;strokeColor=#71818A;rounded=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="1080" y="609" width="460" height="91" />
+        </mxCell>
+        <mxCell id="queue-note" value="&lt;b&gt;Bounded buffering&lt;/b&gt;&lt;br&gt;No separate priority queue or persistent journal exists. If enqueue fails, the caller logs it and continues; watering decisions do not wait for delivery." style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=18;fontColor=#233B43;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#FFF4DF;strokeColor=#B77D29;rounded=0;dashed=1;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="60" y="755" width="1480" height="55" />
+        </mxCell>
+        <UserObject id="prev" label="Previous page" link="data:page/id,mqtt-start">
+          <mxCell style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=16;fontColor=#397553;align=left;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+            <mxGeometry as="geometry" x="60" y="824" width="170" height="28" />
+          </mxCell>
+        </UserObject>
+        <mxCell id="page_count" value="04 / 04" style="html=1;whiteSpace=wrap;fontFamily=Helvetica;fontSize=15;fontColor=#71818A;align=center;verticalAlign=middle;spacing=12;strokeWidth=1.8;fillColor=#E9F4EC;strokeColor=#397553;fillColor=none;strokeColor=none;spacing=0;" vertex="1" parent="1">
+          <mxGeometry as="geometry" x="730" y="826" width="140" height="24" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

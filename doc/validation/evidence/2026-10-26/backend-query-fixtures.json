@@ -1,0 +1,123 @@
+[
+  {
+    "sql": "INSERT INTO readings (\n\n\t\t\tdevice_id,\n\t\t\tsampled_at_ms,\n\t\t\ttemperature_c,\n\t\t\thumidity_pct,\n\t\t\twater_low,\n\t\t\tlight_pct,\n\t\t\tmoisture_pct,\n\t\t\tpump_on,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) \n\t\tRETURNING id",
+    "values": [
+      "01",
+      1000,
+      22,
+      50,
+      false,
+      50,
+      0,
+      false,
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO readings (\n\n\t\t\tdevice_id,\n\t\t\tsampled_at_ms,\n\t\t\ttemperature_c,\n\t\t\thumidity_pct,\n\t\t\twater_low,\n\t\t\tlight_pct,\n\t\t\tmoisture_pct,\n\t\t\tpump_on,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) \n\t\tRETURNING id",
+    "values": [
+      "01",
+      1000,
+      null,
+      null,
+      null,
+      null,
+      null,
+      null,
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO readings (\n\n\t\t\tdevice_id,\n\t\t\tsampled_at_ms,\n\t\t\ttemperature_c,\n\t\t\thumidity_pct,\n\t\t\twater_low,\n\t\t\tlight_pct,\n\t\t\tmoisture_pct,\n\t\t\tpump_on,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) \n\t\tRETURNING id",
+    "values": [
+      "01",
+      1000,
+      -100,
+      0,
+      false,
+      0,
+      100,
+      false,
+      false
+    ]
+  },
+  {
+    "sql": "INSERT INTO readings (\n\n\t\t\tdevice_id,\n\t\t\tsampled_at_ms,\n\t\t\ttemperature_c,\n\t\t\thumidity_pct,\n\t\t\twater_low,\n\t\t\tlight_pct,\n\t\t\tmoisture_pct,\n\t\t\tpump_on,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) \n\t\tRETURNING id",
+    "values": [
+      "01",
+      1000,
+      150,
+      100,
+      false,
+      100,
+      0,
+      false,
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO watering_events (\n\t\t\tdevice_id,\n\t\t\tboot_id,\n\t\t\tcycle_id,\n\t\t\tevent,\n\t\t\toccurred_at_ms,\n\t\t\tduration_ms,\n\t\t\treason,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n\t\tON CONFLICT (device_id, boot_id, cycle_id, event)\n\t\tDO NOTHING",
+    "values": [
+      "01",
+      "1234567890abcdef",
+      1,
+      "started",
+      1000,
+      null,
+      "dry_soil",
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO watering_events (\n\t\t\tdevice_id,\n\t\t\tboot_id,\n\t\t\tcycle_id,\n\t\t\tevent,\n\t\t\toccurred_at_ms,\n\t\t\tduration_ms,\n\t\t\treason,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n\t\tON CONFLICT (device_id, boot_id, cycle_id, event)\n\t\tDO NOTHING",
+    "values": [
+      "01",
+      "1234567890abcdef",
+      1,
+      "stopped",
+      3000,
+      2000,
+      "time_limit",
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO watering_events (\n\t\t\tdevice_id,\n\t\t\tboot_id,\n\t\t\tcycle_id,\n\t\t\tevent,\n\t\t\toccurred_at_ms,\n\t\t\tduration_ms,\n\t\t\treason,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n\t\tON CONFLICT (device_id, boot_id, cycle_id, event)\n\t\tDO NOTHING",
+    "values": [
+      "01",
+      "1234567890abcdef",
+      1,
+      "stopped",
+      3000,
+      2000,
+      "soil_wet",
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO watering_events (\n\t\t\tdevice_id,\n\t\t\tboot_id,\n\t\t\tcycle_id,\n\t\t\tevent,\n\t\t\toccurred_at_ms,\n\t\t\tduration_ms,\n\t\t\treason,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n\t\tON CONFLICT (device_id, boot_id, cycle_id, event)\n\t\tDO NOTHING",
+    "values": [
+      "01",
+      "1234567890abcdef",
+      1,
+      "stopped",
+      3000,
+      2000,
+      "low_water",
+      true
+    ]
+  },
+  {
+    "sql": "INSERT INTO watering_events (\n\t\t\tdevice_id,\n\t\t\tboot_id,\n\t\t\tcycle_id,\n\t\t\tevent,\n\t\t\toccurred_at_ms,\n\t\t\tduration_ms,\n\t\t\treason,\n\t\t\tis_test\n\t\t\t)\n\t\tVALUES ($1, $2, $3, $4, $5, $6, $7, $8)\n\t\tON CONFLICT (device_id, boot_id, cycle_id, event)\n\t\tDO NOTHING",
+    "values": [
+      "01",
+      "1234567890abcdef",
+      1,
+      "stopped",
+      3000,
+      2000,
+      "invalid_sensor",
+      true
+    ]
+  }
+]

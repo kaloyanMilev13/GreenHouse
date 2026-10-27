@@ -4,13 +4,14 @@ const postgres = require("pg"); //loag the postgres library
 const Pool = postgres.Pool; //get the Pool property
 
 const db = new Pool({
-	
+
 	max: 2, //at most 2 database connections in this pool
 	connectionTimeoutMillis: 5000, // wait up to 5 secs when acquiring a connection
 
 });
 
-const topic = "greenhouse/01/telemetry"; //choose the topic
+const telemetryTopic = "greenhouse/01/telemetry"; //choose the topic
+const wateringTopic = "greenhouse/01/watering"; 
 
 const client = mqtt.connect("mqtt://10.42.0.1:1883"); //and th connection
 
@@ -19,12 +20,12 @@ const client = mqtt.connect("mqtt://10.42.0.1:1883"); //and th connection
 db.on("error", function(error){
 
 	console.error("Database connection error:", error.message);
-	
+
 });
 
 
 async function checkDatabase(){//async allows to use the await feature
-	
+
 	try{
 		const result = await db.query("SELECT 1 AS test");//awaits mens to wait for this sql result
 
@@ -32,7 +33,7 @@ async function checkDatabase(){//async allows to use the await feature
 
 	}catch(error){
 		console.error("Database connection failed:", error.message)
-		
+
 	}
 
 }
@@ -47,7 +48,7 @@ async function saveReading(data){
 	if(typeof data.test !== "boolean"){
 		throw new Error("test must be boolean");
 	}
-	
+
 	const values = [
 
 		"01",
@@ -86,6 +87,91 @@ async function saveReading(data){
 
 }
 
+async function saveWateringEvent(data) {
+
+	if(data.device_id !== "01"){
+		throw new Error("Unknown device_id");
+	}
+
+	if (
+		typeof data.boot_id !== "string" ||
+		!/^[0-9a-f]{16}$/.test(data.boot_id)
+	) {
+		throw new Error("boot_id must contain 16 lowercase hex characters");
+	}
+
+	if (!Number.isSafeInteger(data.cycle_id) || data.cycle_id <= 0) {
+		throw new Error("cycle_id must be a positive integer");
+	}
+
+	if (
+		!Number.isSafeInteger(data.occurred_at_ms) ||
+		data.occurred_at_ms < 0
+	) {
+		throw new Error("occurred_at_ms must be a non-negative integer");
+	}
+
+	if (typeof data.test !== "boolean") {
+		throw new Error("test must be boolean");
+	}
+
+	if (data.event === "started") {
+		if (data.duration_ms !== null || data.reason !== "dry_soil") {
+			throw new Error("Invalid start event");
+		}
+	} else if (data.event === "stopped") {
+		const allowedReasons = [
+			"time_limit",
+			"soil_wet",
+			"low_water",
+			"invalid_sensor"
+		];
+
+		if (
+			!Number.isSafeInteger(data.duration_ms) ||
+			data.duration_ms < 0 ||
+			data.duration_ms > data.occurred_at_ms
+		) {
+			throw new Error("Invalid watering duration");
+		}
+
+		if (!allowedReasons.includes(data.reason)) {
+			throw new Error("Invalid stop reason");
+		}
+	} else {
+		throw new Error("event must be started or stopped");
+	}
+
+
+	await db.query(
+		`INSERT INTO watering_events (
+			device_id,
+			boot_id,
+			cycle_id,
+			event,
+			occurred_at_ms,
+			duration_ms,
+			reason,
+			is_test
+			)
+		VALUES ($1, $2, $3, $4, $5, $6, $7, $8)
+		ON CONFLICT (device_id, boot_id, cycle_id, event)
+		DO NOTHING`,
+
+		[
+			data.device_id,
+			data.boot_id,
+			data.cycle_id,
+			data.event,
+			data.occurred_at_ms,
+			data.duration_ms,
+			data.reason,
+			data.test
+		]
+	);
+}
+
+
 //if client givees connect, execute this functions, which logs connection
 //if it manages to subscribe to the topic, log that it is Subscribed
 //if it fails, log the error
@@ -93,15 +179,15 @@ client.on("connect", function(){
 
 	console.log("Connected to MQTT broker");
 
-	client.subscribe(topic, { qos: 1}, function (error){
+	client.subscribe([telemetryTopic, wateringTopic], { qos: 1}, function (error){
 
 		if(error){
-			
+
 			console.error("Subscription failed: ", error.message);
 			return;
 		}
 
-		console.log("Subscribed to: ", topic);
+		console.log("Subscribed to: ", telemetryTopic. wateringTopic);
 
 	});
 
@@ -109,7 +195,7 @@ client.on("connect", function(){
 
 
 function booleanValue(value, name){
-	
+
 	if(value === null || typeof value === "boolean"){
 		return value;
 	}
@@ -146,7 +232,7 @@ function measurement(value, name, min, max){
 //check if the json is valid, if not log the error, if yes, display the info
 client.on("message", async function(receivedTopic, payload) {// lets the func use await
 
-	if(receivedTopic !== topic){
+	if(receivedTopic !== telemetryTopic && receivedTopic !== wateringTopic){
 		return;
 	}
 
@@ -159,7 +245,11 @@ client.on("message", async function(receivedTopic, payload) {// lets the func us
 			throw new Error("Expected a JSON object");
 		}
 
-		await saveReading(data);
+		if (receivedTopic == telemetryTopic){
+			await saveReading(data);
+		}else if(receivedTopic ==wateringTopic){
+			await saveWateringEvent(data);
+		}
 
 	} catch(error){
 		console.error("Rejected message: ", error.message);
