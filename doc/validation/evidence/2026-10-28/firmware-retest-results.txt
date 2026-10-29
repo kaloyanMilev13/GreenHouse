@@ -1,0 +1,21 @@
+Firmware host execution — 28 October 2026
+Source SHA256 d4565585864207f7f4c52922ab74eccd6c1836b4062be0fe267006de9201a928
+Hardware, clock and MQTT calls replaced by controlled adapters; actual application function bodies retained.
+PASS VER-01: conversion endpoints, clamping, finite/range checks, 32-sample rounded mean, ADC error
+PASS VER-02: eight reservoir boundary/error inputs block or allow the start request correctly
+PASS VER-03: stays on at 4999 ms, stops on check at 5000 ms, blocks restart at 599999 ms, allows at 600000 ms cooldown
+LIMIT VER-03: a control check at 5007 ms records 5007 ms; this is not a measured physical pump duration
+PASS VER-04: startup commands OFF; invalid control inputs prevent starts
+PASS VER-03/04: stop at next check with soil_wet reason
+PASS VER-03/04: stop at next check with low_water reason
+PASS VER-03/04: stop at next check with invalid_sensor reason
+GAP VER-04: soil ADC 4095 is accepted and starts watering; actual disconnected-sensor voltage was not measured
+PASS VER-05: normal, low-water and control-sensor fault display branches; soil shown as DRY, OK, WET or ERROR
+PASS VER-06: telemetry values, nulls, timestamp, buffer bounds and event argument guard
+PASS VER-05: main cycle showed Pump ON and WATERING during watering, Pump OFF and MONITORING afterwards; stop reason time_limit; telemetry after OFF
+PASS VER-05: queue_failure cycle showed Pump ON and WATERING during watering, Pump OFF and MONITORING afterwards; stop reason time_limit; telemetry after OFF
+PASS VER-10: local cycle and display completed with queue failures injected
+PASS VER-05: air_fault_display cycle showed Pump ON and SENSOR FAULT during watering, Pump OFF and SENSOR FAULT afterwards; stop reason time_limit; telemetry after OFF
+PASS VER-05: slow_display cycle showed Pump ON and WATERING during watering, Pump OFF and MONITORING afterwards; stop reason time_limit; telemetry after OFF
+CONTROLLED DELAY: each OLED text write advanced the clock by 20 ms; stop event: {"device_id":"01","boot_id":"1212121212121212","cycle_id":1,"event":"stopped","occurred_at_ms":6210,"duration_ms":5010,"reason":"time_limit","test":false}
+15/15 scenario assertions completed; GAP/LIMIT observations are not requirement passes.

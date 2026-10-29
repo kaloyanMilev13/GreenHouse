@@ -1,0 +1,7 @@
+{
+  "greenhouse/main/greenhouse.c": "d4565585864207f7f4c52922ab74eccd6c1836b4062be0fe267006de9201a928",
+  "greenhouse/main/mqtt.c": "b4d95f951a9fb32e518bbe4a88c992ccab63254e31364379141d705dc5237fdf",
+  "greenhouse/main/network.c": "f2890948460f53bfbcdb561b8774a1dda835c550e7a7a996e1162f2650c8c696",
+  "backend/index.js": "303ada35ac584007a3ce21175f48e2ecb69a263b415cc5eaeb9db2280ef75a7e",
+  "dashboard/greenhouse-overview.json": "57f744c3b803f680a79612b8c4871ce657fee6159660248128108e15efa40b14"
+}

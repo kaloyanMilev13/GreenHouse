@@ -1,5 +1,7 @@
 # Verification review and pending display fix — 27 October 2026
 
+**Historical review — superseded.** The pending OLED fix below was applied and passed the 27 October retest. The [28 October retest](../2026-10-28/README.md) covers the current five-second limit, ten-minute cooldown and soil labels. The hypothetical walkthrough below has been replaced by the author's confirmed [caretaker self-test](../2026-10-28/caretaker-validation.md). The remaining text preserves what was known at the time of this review.
+
 The original requirements were reread from `doc/analysis/Greenhouse_Analysis_and_Advice_Revised.odt`. No application code was changed in this review. The executed evidence remains the 26 October run; this review does not claim new physical or user tests.
 
 ## Requirement scope

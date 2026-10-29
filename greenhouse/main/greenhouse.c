@@ -29,11 +29,10 @@
 #include "network.h"
 #include "mqtt.h"
 
-#define SENSOR_READ_INTERVAL_MS 5000
+#define SENSOR_READ_INTERVAL_MS 2000
 
-#define WATERING_DURATION_MS 2000ULL
-
-#define WATERING_COOLDOWN_MS 60000ULL //timer for spreading the water in the soil
+#define WATERING_DURATION_MS 5000ULL // 5 secs
+#define WATERING_COOLDOWN_MS 600000ULL //timer for spreading the water in the soil - 10 mins
 
 
 
@@ -59,24 +58,25 @@
 #define ADC_LOWER_BOUND 0
 #define ADC_UPPER_BOUND 4095
 
-#define MOISTURE_DRY_ADC 1883.0f
-#define MOISTURE_WET_ADC 1822.0f
+#define MOISTURE_DRY_ADC 1880.0f
+#define MOISTURE_WET_ADC 1620.0f
 
 //Lower Bounds
 #define MARK_LIGHT_LOW 0 //tested
-#define MARK_WATER_LOW 1200 //tested
-#define MARK_MOISTURE_DRY 1880 
+#define MARK_WATER_LOW 200 //tested
+#define MARK_MOISTURE_DRY 1880 //tetsed 
 
 //Upper Bounds
 #define MARK_LIGHT_HIGH 2400 //tested
 #define MARK_WATER_MAX 1700 //tested
-#define MARK_MOISTURE_WET 1860
+#define MARK_MOISTURE_WET 1700 //tested
 
 
 //PUMP
 #define PUMP_GPIO GPIO_NUM_16
 #define PUMP_ON_LEVEL 1
 #define PUMP_OFF_LEVEL 0
+
 
 typedef struct {
 	float temperature;
@@ -331,6 +331,7 @@ static esp_err_t sendWateringEvent(const Watering *event);
 
 void updateWatering(LatestReadings *readings, bool *pump_on){
 
+
 	static uint32_t cycle_id = 0;
 
 	static uint64_t started_at_ms = 0;
@@ -345,11 +346,14 @@ void updateWatering(LatestReadings *readings, bool *pump_on){
 
 	bool should_start = watering_safe && (readings->moisture >= MARK_MOISTURE_DRY);
 
+
+
 	if(*pump_on){
 
 		bool time_expired = now_ms - started_at_ms >= WATERING_DURATION_MS;
 
 		bool soil_wet = readings->moisture <= MARK_MOISTURE_WET;
+
 
 		if(!watering_safe || soil_wet || time_expired){ // enought time watering or shouldnt water now
 
@@ -411,6 +415,7 @@ void updateWatering(LatestReadings *readings, bool *pump_on){
 
 		cooling_down = false;
 	}
+
 
 	if(should_start){
 
@@ -550,6 +555,8 @@ static bool formatTelemetry(LatestReadings *readings, char *output, size_t outpu
 
 }
 
+
+
 void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 	char readingsBuffer[17];
@@ -571,7 +578,7 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 	if(readings->light_valid){
 
-		snprintf(readingsBuffer, sizeof(readingsBuffer), "Light: %.1f", readings->light_pct);
+		snprintf(readingsBuffer, sizeof(readingsBuffer), "Light: %.1f %%", readings->light_pct);
 		ssd1306_display_text(oled, 2, readingsBuffer, strlen(readingsBuffer), false);
 
 	}else{
@@ -584,7 +591,8 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: ERROR");
 		ssd1306_display_text(oled, 3, readingsBuffer, strlen(readingsBuffer), false);
 	}else {
-		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: %s", readings->water_low ? "LOW" : "OK");
+		//snprintf(readingsBuffer, sizeof(readingsBuffer), "Water: %s", readings->water_low ? "LOW" : "OK");
+		snprintf(readingsBuffer, sizeof(readingsBuffer), "Water ADC: %d", readings->water);
 		ssd1306_display_text(oled, 3, readingsBuffer, strlen(readingsBuffer), false);
 	}
 
@@ -600,6 +608,9 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 	}else {
 		soil_status = "OK";
 	}
+
+
+
 
 
 	snprintf(readingsBuffer, sizeof(readingsBuffer), "Soil: %s", soil_status);
@@ -636,71 +647,8 @@ void displayResults(SSD1306_t *oled, const LatestReadings *readings){
 
 }
 
-/*
-void app_main(void)
-{
-    // Keep the pump OFF throughout calibration.
-    initPump();
 
-    adc_oneshot_unit_handle_t adc_handle = initSensors();
-
-    printf("\nSoil moisture calibration — pump OFF\n");
-    printf("Record readings in dry soil and watered, drained soil.\n\n");
-
-    while (1) {
-        int sum = 0;
-        int minimum = 4095;
-        int maximum = 0;
-        int successful_reads = 0;
-
-        // Average several samples to reduce noise.
-        for (int i = 0; i < 32; i++) {
-            int raw = 0;
-            esp_err_t result = adc_oneshot_read(
-                adc_handle,
-                MOISTURE_ADC_CHANNEL,
-                &raw
-            );
-
-            if (result == ESP_OK) {
-                sum += raw;
-
-                if (raw < minimum) minimum = raw;
-                if (raw > maximum) maximum = raw;
-
-                successful_reads++;
-            } else {
-                printf("ADC read failed: %s\n",
-                       esp_err_to_name(result));
-            }
-
-            vTaskDelay(pdMS_TO_TICKS(20));
-        }
-
-        if (successful_reads > 0) {
-            float average = (float)sum / successful_reads;
-
-            printf(
-                "Soil ADC | average: %.1f | min: %d | max: %d"
-                " | valid samples: %d/32\n",
-                average,
-                minimum,
-                maximum,
-                successful_reads
-            );
-        } else {
-            printf("ERROR: no successful soil readings\n");
-        }
-
-        vTaskDelay(pdMS_TO_TICKS(500));
-    }
-}
-
-*/
-
-
-void app_main(void)
-{
+void app_main(void){
 	//initialize the pump
 	initPump();
 
@@ -817,3 +765,80 @@ void app_main(void)
 	}
 }
 
+
+/*
+void app_main(void)
+{
+    initPump();  // Pump OFF throughout calibration.
+
+    adc_oneshot_unit_handle_t adc_handle = initSensors();
+
+    // Change this label for each test.
+    const char *test_name = "DRY SOIL 1";
+
+    printf("\nMoisture calibration | %s | Pump OFF\n", test_name);
+
+    // Allow readings to settle before collecting data.
+    vTaskDelay(pdMS_TO_TICKS(2000));
+
+    unsigned batch = 0;
+
+    while (1) {
+        int sum = 0;
+        int minimum = ADC_UPPER_BOUND;
+        int maximum = ADC_LOWER_BOUND;
+        int successful_reads = 0;
+
+        for (int i = 0; i < MOISTURE_SAMPLE_COUNT; i++) {
+            int raw = 0;
+
+            esp_err_t result = adc_oneshot_read(
+                adc_handle,
+                MOISTURE_ADC_CHANNEL,
+                &raw
+            );
+
+            if (result != ESP_OK) {
+                printf("ADC error: %s\n", esp_err_to_name(result));
+                continue;
+            }
+
+            sum += raw;
+
+            if (raw < minimum) minimum = raw;
+            if (raw > maximum) maximum = raw;
+
+            successful_reads++;
+        }
+
+        batch++;
+
+        if (successful_reads == MOISTURE_SAMPLE_COUNT) {
+            float average = (float)sum / successful_reads;
+
+            printf(
+                "%s | Batch: %u | average: %.1f"
+                " | min: %d | max: %d | valid samples: %d/%d\n",
+                test_name,
+                batch,
+                average,
+                minimum,
+                maximum,
+                successful_reads,
+                MOISTURE_SAMPLE_COUNT
+            );
+        } else {
+            printf(
+                "%s | Batch: %u | INVALID"
+                " | valid samples: %d/%d\n",
+                test_name,
+                batch,
+                successful_reads,
+                MOISTURE_SAMPLE_COUNT
+            );
+        }
+
+        vTaskDelay(pdMS_TO_TICKS(1000));
+    }
+}
+*/
