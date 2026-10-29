@@ -1,0 +1,3 @@
+# Exclude temporary document scripts and exported artifacts from language statistics.
+tmp/** linguist-detectable=false
+output/** linguist-detectable=false
