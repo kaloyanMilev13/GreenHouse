@@ -1,0 +1,181 @@
+ Embedded Systems
+ Self-study plan
+ FONTYS ICT / FIRST YEAR / COACH: IMAN
+
+
+ A. Rationale - Why Embedded Systems?
+ I am considering Embedded Systems (Intelligent Technologies) because I enjoy C and understanding how
+ software interacts with hardware. I have started using C, ESP32, Wi-Fi and MQTT in an IoT greenhouse project,
+ and explored alternative communication protocols. This gives me a concrete system in which to investigate
+ sensors, timing and communication decisions. My interest in registers, peripherals, interrupts and digital logic is a
+ direction to investigate, not evidence of mastery. Embedded engineering requires reasoning about physical
+ behaviour, memory, timing and failure as well as writing working code. After discussing this gap with Iman, I want
+ to build the mathematics, electronics and computer science needed to explain why a design works and when
+ another approach is better. This makes the specialisation a considered next step, which I will test through the
+ evidence below.
+
+ B. Learning roadmap - 12 weeks
+ Scope: 12 weeks at 4.5 hours/week (54 hours). Selected lessons and small experiments, not complete courses. I assume access to
+ my existing ESP32 development setup; no additional sensors, actuators or measuring instruments are assumed. Synthetic data and
+ calculations are acceptable if clearly labelled.
+
+
+   Period     Learning objectives          Resource and reason for       Practical application        Deliverable / completion
+                                           choosing it                                                criteria
+
+
+   1-2        Functions, slope, units;     OpenStax: College Algebra     W1: diagnose algebra         One calculation sheet and
+   Model      voltage, current,            2e, 3.1 & 4.1 for function    gaps; derive y = ax + b      labelled circuit. Check
+   s & cir    resistance, power,           examples; All About           from two synthetic           units and verify three
+   cuits      series circuits, voltage     Circuits: DC, selected        calibration points.          calibration inputs,
+              dividers and                 voltage/current, Ohm's law,   W2: calculate divider        including one outside the
+              capacitance. Why: turn       divider and capacitor         output, current and          fitted range. Explain
+              sensor values and            lessons for physical          power; sketch capacitor      divider loading and why
+              circuit choices into         meaning. Entry: arithmetic    charging and explain         an ideal calculation alone
+              quantities I can justify.    and rearranging simple        stored charge.               does not establish GPIO
+                                           equations.                                                 compatibility.
+
+
+   3-4        Binary/hex, unsigned bit     GNU C Language Manual:        W3: draw memory for a        Compiling program,
+   C&m        masks, pointers, arrays,     Integer Types, Bitwise        fixed array and pointer;     memory sketch and
+   emory      bounds, storage              Operations, Pointers,         trace a bit-mask update.     normal/empty/boundary
+              lifetime; CPU, RAM,          Arrays and Storage Class      W4: write a C function       cases. Explain array
+              flash and                    Specifiers. Direct            converting an array of       bounds, pointer lifetime
+              memory-mapped I/O.           explanations with small       synthetic sensor             and unsigned
+              Why: understand how          code examples. Entry:         readings, passing its        wraparound; correctly
+              data and peripheral          basic C variables, loops      length explicitly. Avoid     predict a changed input
+              state become machine         and functions; revise these   dynamic allocation.          before running it.
+              operations.                  first if needed.
+
+
+
+
+Embedded Systems | 12-week foundation plan | 29 October 2026                                                                      1
+   Period     Learning objectives          Resource and reason for       Practical application      Deliverable / completion
+                                           choosing it                                              criteria
+
+
+   5-6        GPIO levels, Boolean         Espressif: GPIO & RTC         W5: trace one GPIO         Annotated flow diagram,
+   Periph     masks, registers,            GPIO and GPTimer,             setting from API to        code and min/mean/max
+   erals      timers, polling versus       selected configuration and    peripheral; draw           interval error. Explain
+   &          interrupts, sampling         callback examples. Entry:     timer-to-handler flow.     polling, ISR work and
+   timing     interval and jitter.         phase 2 and an existing       W6: timestamp 100          observed jitter; distinguish
+              Identify UART, I2C and       build/flash workflow. Match   periodic events with       measurements from a
+              SPI roles; implement         docs to installed framework   network activity off/on.   worst-case timing
+              only timing. Why: a          and chip; no framework        Use the timer API          guarantee. Fit review:
+              correct reading also         migration.                    available in my setup;     record one appealing task,
+              needs predictable                                          defer printing/network     one difficulty and one
+              timing.                                                    work out of the ISR.       open question.
+
+
+
+
+Embedded Systems | 12-week foundation plan | 29 October 2026                                                                   2
+ B. Learning roadmap - continued
+ Order: quantities and circuits > C and memory > timing > network reliability > calculus > feedback. Each phase receives 9 hours.
+ Later work builds on the relevant completion gates.
+
+
+   Period     Learning objectives          Resource and reason for          Practical application         Deliverable / completion
+                                           choosing it                                                    criteria
+
+
+   7-8        Wi-Fi link, IP               OASIS MQTT 3.1.1                 W7: draw                      Comparison table: pattern,
+   Reliab     addressing, TCP versus       sections 3.3 and 4.3; HTTP       MQTT/TCP/IP/Wi-Fi             transport, overhead
+   le IoT     UDP; MQTT topics,            Semantics sections 3 and         layers; compare               assumptions, delivery and
+              QoS 0/1, retained state      9.3; CoAP RFC 7252               publish/subscribe with        security; outage log with
+              and reconnects;              sections 2 and 4. Short          request/response.             observed versus expected
+              HTTP/CoAP trade-offs.        primary-source excerpts for      W8: send numbered,            behaviour. Explain QoS 1
+              Why: justify MQTT and        a defensible comparison.         timestamped readings,         duplicates,
+              distinguish delivery from    Entry: existing MQTT             interrupt Wi-Fi and           retained-message age,
+              freshness or successful      experiment and timing logs.      reconnect. Log loss,          bounded buffering and
+              actuation.                                                    duplicates and stale          TLS/authentication. Name
+                                                                            data with the supported       one scenario favouring
+                                                                            QoS setting.                  HTTP and one favouring
+                                                                                                          CoAP.
+
+
+   9-10       Derivatives as rate,         3Blue1Brown: The paradox         W9: calculate                 Worked values and two
+   Maths      integrals as                 of the derivative and            temperature slopes and        response curves, with
+   for fee    accumulation; finite         Integration and the              accumulated error for a       parameters labelled
+   dback      differences, sums and a      fundamental theorem of           short synthetic series.       hypothetical. Explain tau,
+              first-order differential     calculus. Visual intuition,      W10: step through dT/dt       slope, area and
+              equation. Why: P, I and      followed by my own               = (Tenv - T)/tau + k*u        discretisation error. Gate:
+              D need meanings and          calculations. Entry: phase       using Euler updates.          compute difference/dt and
+              units before tuning          1 functions/units and phase      State units; compare          sum(error*dt) unaided
+              makes sense.                 3 sampling; replay algebra       results at dt and dt/2.       before starting PI control.
+                                           work if these are weak.
+
+
+   11-12      Feedback,                    MathWorks: Understanding         W11: reuse the thermal        Overlaid curves and a
+   Feedb      setpoint/error, P and PI,    PID Control, parts 1-3: PID      model; compare on/off         table of peak overshoot,
+   ack        saturation, windup,          basics, anti-windup and          with hysteresis against       final error and settling time
+   trial      noise, sampling and          derivative noise.                P.                            (state tolerance/horizon;
+              signs of instability;        Conceptual videos; use my        W12: add PI with output       report if not settled).
+              interpret D only. Why:       C model without MATLAB.          limits and conditional        Explain saturation, why D
+              assess when feedback         Entry: phase 5 gate; full        integration. Repeat with      reacts to noise and why
+              improves on simple           PID tuning and stability         a disturbance and a           simulated stability is not
+              on/off control.              proofs are later work.           larger sample interval.       proof for hardware. Final
+                                                                            Predict each change           coach review.
+                                                                            first.
+
+
+
+
+Embedded Systems | 12-week foundation plan | 29 October 2026                                                                          3
+ C. Weekly routine
+ Theory - 2 h - Read/watch only the named extracts; solve or sketch before opening a worked answer.
+
+ Practice - 1.75 h - Run one controlled experiment: prediction, single change, recorded result.
+
+ Evidence - 0.75 h - Keep code, parameters, diagram/plot and a 150-word explanation: why, result, limitation,
+ next question.
+
+ Total: 4.5 h/week. A fifth hour is optional catch-up, not new content. If a gate fails, use the next practice session
+ to repair the gap and reduce later scope. If necessary, finish week 12 with P control and defer PI; do not
+ compress the foundations.
+
+ D. Longer-term direction
+ Mathematics and electronics: extend algebra into trigonometry (phase and periodic signals), vectors/matrices
+ (coordinates and coupled systems), then derivatives, integrals and differential equations in depth. Use these to
+ analyse RC dynamics and sensor/actuator response; study logic gates and interface electrical limits.
+
+ Embedded and real-time systems: deepen architecture, registers, ADC/PWM and UART/I2C/SPI through one
+ peripheral at a time. Then study RTOS scheduling, deadlines, task/ISR communication and race conditions.
+ Demonstrate a measured timing budget and recovery from a failed peripheral.
+
+ Control engineering, then robotics: progress to modelling, transfer functions, stability analysis,
+ sampling/aliasing, filtering and full PID with actuator constraints. After Linux CLI and C++ or Python basics,
+ explore ROS2 nodes, topics, services and QoS using the official ROS2 tutorials (source). ROS2 supports
+ communication between robotics components; it does not replace low-level control or guarantee deadlines. Start
+ in simulation; choose an OS-compatible supported release at that time.
+
+ E. Progress evaluation
+ 1. Explain: at each fortnightly checkpoint, give a five-minute explanation without tutorial notes: principle,
+ implementation, alternative and limitation. Correct gaps before moving on.
+
+ 2. Predict and transfer: make at least one written prediction per phase and solve one changed-input task
+ without copying a solution. Explain any mismatch using units, code or a model.
+
+ 3. Reproduce: keep six evidence bundles with source links, code/version, inputs, assumptions and results.
+ Re-run one experiment with Iman from its recorded steps.
+
+ 4. Reason about failure: by week 12, show evidence for an array-boundary case, a network outage and
+ actuator saturation in simulation; distinguish observations from guarantees.
+
+ 5. Decide on fit: review at weeks 6 and 12. Use two concrete examples of enjoying or disliking
+ hardware/software reasoning, one persistent gap and the workload log to decide: continue, extend foundations or
+ investigate another specialisation.
+
+ Resource access and prerequisites
+ Resource titles, linked content and relevance checked on 29 October 2026. The core readings/video pages are publicly accessible;
+ no paid course enrolment or certificate is required. Study only the named sections. Entry requirements in the table are my study
+ readiness checks, not provider-issued admissions requirements. GNU material includes extensions: focus on portable C and verify
+ target-specific details. Espressif API versions vary; select the installed framework/chip version. The ROS2 rendered documentation
+ blocked automated access, so its official source was verified instead.
+
+
+
+
+Embedded Systems | 12-week foundation plan | 29 October 2026                                                                          4
+
